@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "biome_modifier",
+  "version": "${version}",
+  "name": "Biome Modifier for Fabric",
+  "description": "A library mod that allows developers utilize datapacks to modify biomes.",
+  "authors": [
+    "Liu Dongyu"
+  ],
+  "contact": {
+    "repo": "https://github.com/Viola-Siemens/Biome-Modifier-for-Fabric"
+  },
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.hexagram2021.biome_modifier.BiomeModifierMod"
+    ]
+  },
+  "accessWidener": "biome_modifier.accessWidener",
+  "mixins": [
+    "biome_modifier.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.19",
+    "fabric": "*",
+    "minecraft": ">=1.20 <1.21"
+  }
+}

@@ -1,0 +1,81 @@
+plugins {
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+version = project.mod_version
+group = project.maven_group
+archivesBaseName = project.archives_base_name
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven {
+        name 'Xander Maven'
+        url 'https://maven.isxander.dev/releases'
+    }
+
+    maven {
+        name 'terraformersmc Maven'
+        url "https://maven.terraformersmc.com"
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/biome_modifier.accesswidener")
+
+    runs {
+        server {
+            runDir "run/server"
+        }
+        client {
+            runDir "run/client"
+        }
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 17
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+    }
+}
