@@ -2,6 +2,7 @@ package com.hexagram2021.biome_modifier.api;
 
 import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifierType;
 import com.hexagram2021.biome_modifier.api.modifiers.impl.*;
+import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BiomeModifierTypes {
@@ -19,5 +20,9 @@ public final class BiomeModifierTypes {
 	public static IBiomeModifierType register(ResourceLocation id, IBiomeModifierType type) {
 		IBiomeModifierType.register(id, type);
 		return type;
+	}
+
+	public static void init() {
+		BMLogger.info("Loaded %d biome modifier types.".formatted(IBiomeModifierType.BIOME_MODIFIER_TYPES.size()));
 	}
 }

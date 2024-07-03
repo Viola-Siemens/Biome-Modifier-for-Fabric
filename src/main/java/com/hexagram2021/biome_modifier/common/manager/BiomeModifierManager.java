@@ -5,8 +5,12 @@ import com.google.gson.*;
 import com.hexagram2021.biome_modifier.BiomeModifierMod;
 import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifier;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -27,10 +31,13 @@ public class BiomeModifierManager extends SimpleJsonResourceReloadListener imple
 	@Nullable
 	public static BiomeModifierManager INSTANCE = null;
 
+	private final RegistryAccess registryAccess;
+
 	private Map<ResourceLocation, IBiomeModifier> biomeModifiersByName = ImmutableMap.of();
 
-	public BiomeModifierManager() {
+	public BiomeModifierManager(RegistryAccess registryAccess) {
 		super(GSON, ID.getPath());
+		this.registryAccess = registryAccess;
 		if(INSTANCE != null) {
 			BMLogger.error("INSTANCE already exists!");
 		}
@@ -50,6 +57,7 @@ public class BiomeModifierManager extends SimpleJsonResourceReloadListener imple
 	@Override
 	protected void apply(Map<ResourceLocation, JsonElement> modifiers, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
 		ImmutableMap.Builder<ResourceLocation, IBiomeModifier> builder = ImmutableMap.builder();
+		DynamicOps<JsonElement> dynamicOps = RegistryOps.create(JsonOps.INSTANCE, this.registryAccess);
 		for(Map.Entry<ResourceLocation, JsonElement> entry: modifiers.entrySet()) {
 			ResourceLocation id = entry.getKey();
 			if (id.getPath().startsWith("_")) {
@@ -61,7 +69,7 @@ public class BiomeModifierManager extends SimpleJsonResourceReloadListener imple
 					continue;
 				}
 				JsonObject jsonObject = GsonHelper.convertToJsonObject(entry.getValue(), "top element");
-				IBiomeModifier biomeModifier = IBiomeModifier.fromJson(jsonObject);
+				IBiomeModifier biomeModifier = IBiomeModifier.fromJson(dynamicOps, jsonObject);
 				builder.put(id, biomeModifier);
 			} catch (RuntimeException e) {
 				BMLogger.error("Parsing error loading biome modifier %s.".formatted(id), e);

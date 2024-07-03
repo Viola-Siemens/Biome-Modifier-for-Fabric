@@ -7,7 +7,6 @@ import net.minecraft.world.level.biome.Biome;
 
 public abstract class AbstractBiomeModifier implements IBiomeModifier {
 	final HolderSet<Biome> biomes;
-
 	final int priority;
 
 	protected AbstractBiomeModifier(HolderSet<Biome> biomes, int priority) {

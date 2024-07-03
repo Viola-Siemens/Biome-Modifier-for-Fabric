@@ -1,10 +1,11 @@
 package com.hexagram2021.biome_modifier.api.modifiers;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.DynamicOps;
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -28,13 +29,13 @@ public interface IBiomeModifier {
 
 	IBiomeModifierType type();
 
-	static IBiomeModifier fromJson(JsonObject object) {
+	static IBiomeModifier fromJson(DynamicOps<JsonElement> dynamicOps, JsonObject object) {
 		String type = GsonHelper.convertToString(object.getAsJsonPrimitive("type"), "type");
 		ResourceLocation typeId = ResourceLocation.tryParse(type);
 		if(typeId == null || !IBiomeModifierType.BIOME_MODIFIER_TYPES.containsKey(typeId)) {
-			throw new IllegalArgumentException("Unexpected type: %s");
+			throw new IllegalArgumentException("Unexpected type: %s".formatted(typeId));
 		}
 		Codec<? extends IBiomeModifier> codec = IBiomeModifierType.BIOME_MODIFIER_TYPES.get(typeId).codec();
-		return Util.getOrThrow(codec.parse(JsonOps.INSTANCE, object), JsonParseException::new);
+		return Util.getOrThrow(codec.parse(dynamicOps, object), JsonParseException::new);
 	}
 }

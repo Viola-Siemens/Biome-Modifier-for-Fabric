@@ -7,20 +7,16 @@ import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifierType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.List;
 
 public class AddSpawnsBiomeModifier extends AbstractBiomeModifier {
 	public static final Codec<AddSpawnsBiomeModifier> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(AddSpawnsBiomeModifier::biomes),
-					Codec.INT.fieldOf("priority").forGetter(AddSpawnsBiomeModifier::priority),
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawnsBiomeModifier::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddSpawnsBiomeModifier::priority),
 					Codec.list(MobSpawnSettings.SpawnerData.CODEC).fieldOf("spawners").forGetter(AddSpawnsBiomeModifier::spawners)
 			).apply(instance, AddSpawnsBiomeModifier::new)
 	);

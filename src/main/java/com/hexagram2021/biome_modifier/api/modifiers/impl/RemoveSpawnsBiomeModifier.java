@@ -16,8 +16,8 @@ import net.minecraft.world.level.biome.Biome;
 public class RemoveSpawnsBiomeModifier extends AbstractBiomeModifier {
 	public static final Codec<RemoveSpawnsBiomeModifier> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(RemoveSpawnsBiomeModifier::biomes),
-					Codec.INT.fieldOf("priority").forGetter(RemoveSpawnsBiomeModifier::priority),
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveSpawnsBiomeModifier::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveSpawnsBiomeModifier::priority),
 					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE).fieldOf("entity_types").forGetter(RemoveSpawnsBiomeModifier::entityTypes)
 			).apply(instance, RemoveSpawnsBiomeModifier::new)
 	);
