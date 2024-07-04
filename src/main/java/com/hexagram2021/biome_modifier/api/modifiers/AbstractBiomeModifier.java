@@ -24,8 +24,8 @@ public abstract class AbstractBiomeModifier implements IBiomeModifier {
 	}
 
 	@Override
-	public boolean canModify(Biome biome) {
-		return this.biomes.contains(Holder.direct(biome));
+	public boolean canModify(Holder<Biome> biome) {
+		return this.biomes.contains(biome);
 	}
 	public abstract void modifyParametersList(IModifiableBiome.BiomeModificationParametersList list) throws RuntimeException;
 

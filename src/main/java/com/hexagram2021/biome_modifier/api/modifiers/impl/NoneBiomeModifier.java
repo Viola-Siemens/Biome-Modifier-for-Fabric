@@ -6,6 +6,7 @@ import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifier;
 import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifierType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 
 public class NoneBiomeModifier implements IBiomeModifier {
@@ -15,7 +16,7 @@ public class NoneBiomeModifier implements IBiomeModifier {
 	}
 
 	@Override
-	public boolean canModify(Biome biome) {
+	public boolean canModify(Holder<Biome> biome) {
 		return false;
 	}
 	@Override

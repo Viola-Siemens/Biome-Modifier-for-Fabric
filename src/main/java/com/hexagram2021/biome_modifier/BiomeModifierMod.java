@@ -3,6 +3,7 @@ package com.hexagram2021.biome_modifier;
 import com.hexagram2021.biome_modifier.api.BiomeModifierTypes;
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import com.hexagram2021.biome_modifier.common.manager.BiomeModifierManager;
+import com.hexagram2021.biome_modifier.common.manager.BiomeModifierRegistries;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -21,6 +22,7 @@ public class BiomeModifierMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		BiomeModifierTypes.init();
+		BiomeModifierRegistries.init();
 		ServerLifecycleEvents.SERVER_STARTING.register(BiomeModifierMod::onServerAboutToStart);
 	}
 
@@ -33,13 +35,15 @@ public class BiomeModifierMod implements ModInitializer {
 		int biomeModifiersCount = 0;
 		try {
 			BiomeModifierManager manager = Objects.requireNonNull(BiomeModifierManager.INSTANCE);
+			manager.load(registryAccess);
 			biomeModifiersCount = manager.getAllBiomeModifiers().size();
-			biomeRegistry.forEach(biome -> {
+			biomeRegistry.holders().forEach(biomeHolder -> {
+				Biome biome = biomeHolder.value();
 				if((Object)biome instanceof IModifiableBiome modifiableBiome) {
 					IModifiableBiome.BiomeModificationParametersList list = modifiableBiome.biome_modifier$getBiomeModificationParametersList(registryAccess);
 					AtomicInteger count = new AtomicInteger(0);
 					manager.applyAllBiomeModifiers((id, modifier) -> {
-						if(modifier.canModify(biome)) {
+						if(modifier.canModify(biomeHolder)) {
 							modifier.modify(list);
 						}
 						if(list.errorCount() > count.get()) {

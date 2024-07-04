@@ -59,7 +59,7 @@ This type allows developers to replace other biome modifiers in other datapacks.
 
 This biome modifier adds all placed features mentioned in `features` field to target biomes.
 
-If any placed feature is missing from the registry, an error will be logged and won't crash the game.
+If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
@@ -74,9 +74,9 @@ If any placed feature is missing from the registry, an error will be logged and 
 
 This biome modifier removes all placed features mentioned in `features` field from target biomes.
 
-If any placed feature is missing from the registry, an error will be logged and won't crash the game.
-
 If any placed feature is missing from the target biomes, a warning will be logged and won't crash the game.
+
+If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
@@ -91,7 +91,7 @@ If any placed feature is missing from the target biomes, a warning will be logge
 
 This biome modifier adds all entity spawns mentioned in `spawns` field to target biomes.
 
-If any entity type is missing from the registry, an error will be logged and won't crash the game.
+If any entity type is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
@@ -113,9 +113,9 @@ If any entity type is missing from the registry, an error will be logged and won
 
 This biome modifier removes all entity spawns mentioned in `entity_types` field from target biomes.
 
-If any entity type is missing from the registry, an error will be logged and won't crash the game.
-
 If any entity type is missing from the target biomes, a warning will be logged and won't crash the game.
+
+If any entity type is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
@@ -134,7 +134,7 @@ This biome modifier adds all entity spawns mentioned in `spawn_costs` field to t
 
 Unlikely to `biome_modifier:add_spawns`, this modifier adds spawns to spawn costs (aka. spawn potential, spawn density).
 
-If any entity type is missing from the registry, an error will be logged and won't crash the game.
+If any entity type is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
@@ -157,9 +157,9 @@ This biome modifier removes all entity spawns mentioned in `entity_types` field 
 
 Unlikely to `biome_modifier:remove_spawns`, this modifier removes spawns to spawn costs (aka. spawn potential, spawn density).
 
-If any entity type is missing from the registry, an error will be logged and won't crash the game.
-
 If any entity type is missing from the target biomes, a warning will be logged and won't crash the game.
+
+If any entity type is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {

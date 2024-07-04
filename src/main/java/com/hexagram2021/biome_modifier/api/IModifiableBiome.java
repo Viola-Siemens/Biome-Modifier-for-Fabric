@@ -227,7 +227,6 @@ public interface IModifiableBiome {
 			List<Holder<ConfiguredWorldCarver<?>>> list = this.carvers.get(step);
 			for(Holder<ConfiguredWorldCarver<?>> holder: carvers) {
 				if(!list.remove(holder)) {
-					Registry<ConfiguredWorldCarver<?>> registry = this.registryAccess.registryOrThrow(Registries.CONFIGURED_CARVER);
 					this.warnMissing("Carver", step, "carvers");
 				}
 			}
@@ -252,7 +251,6 @@ public interface IModifiableBiome {
 			List<Holder<PlacedFeature>> list = this.features.get(stepOrdinal);
 			for(Holder<PlacedFeature> holder: features) {
 				if(!list.remove(holder)) {
-					Registry<PlacedFeature> registry = this.registryAccess.registryOrThrow(Registries.PLACED_FEATURE);
 					this.warnMissing("Feature", step, "features");
 				}
 			}
