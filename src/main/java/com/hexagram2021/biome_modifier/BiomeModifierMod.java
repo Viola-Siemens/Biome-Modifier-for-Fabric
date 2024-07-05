@@ -36,6 +36,7 @@ public class BiomeModifierMod implements ModInitializer {
 		try {
 			BiomeModifierManager manager = Objects.requireNonNull(BiomeModifierManager.INSTANCE);
 			manager.load(registryAccess);
+			manager.freeze();
 			biomeModifiersCount = manager.getAllBiomeModifiers().size();
 			biomeRegistry.holders().forEach(biomeHolder -> {
 				Biome biome = biomeHolder.value();

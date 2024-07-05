@@ -1,0 +1,6 @@
+{
+  "type": "biome_modifier:add_features",
+  "biomes": "#minecraft:is_badlands",
+  "features": "extra_ores:ore_gold_extra",
+  "step": "underground_ores"
+}

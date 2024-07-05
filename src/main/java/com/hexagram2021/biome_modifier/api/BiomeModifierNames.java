@@ -12,6 +12,8 @@ public final class BiomeModifierNames {
 	public static final ResourceLocation REMOVE_SPAWNS = new ResourceLocation(MODID, "remove_spawns");
 	public static final ResourceLocation ADD_SPAWN_COSTS = new ResourceLocation(MODID, "add_spawn_costs");
 	public static final ResourceLocation REMOVE_SPAWN_COSTS = new ResourceLocation(MODID, "remove_spawn_costs");
+	public static final ResourceLocation ADD_CARVERS = new ResourceLocation(MODID, "add_carvers");
+	public static final ResourceLocation REMOVE_CARVERS = new ResourceLocation(MODID, "remove_carvers");
 
 	private BiomeModifierNames() {
 	}

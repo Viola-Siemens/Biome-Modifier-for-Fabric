@@ -1,0 +1,23 @@
+{
+  "type": "biome_modifier:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "extra_ores:ore_coal_upper",
+    "extra_ores:ore_coal_lower",
+    "extra_ores:ore_iron_upper",
+    "extra_ores:ore_iron_upper2",
+    "extra_ores:ore_iron_middle",
+    "extra_ores:ore_iron_small",
+    "extra_ores:ore_gold",
+    "extra_ores:ore_gold_lower",
+    "extra_ores:ore_redstone",
+    "extra_ores:ore_redstone_lower",
+    "extra_ores:ore_diamond",
+    "extra_ores:ore_diamond_large",
+    "extra_ores:ore_diamond_buried",
+    "extra_ores:ore_lapis",
+    "extra_ores:ore_lapis_buried",
+    "extra_ores:ore_copper"
+  ],
+  "step": "underground_ores"
+}

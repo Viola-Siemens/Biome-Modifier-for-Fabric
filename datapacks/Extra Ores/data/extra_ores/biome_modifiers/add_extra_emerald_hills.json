@@ -1,0 +1,6 @@
+{
+  "type": "biome_modifier:add_features",
+  "biomes": "#minecraft:is_hill",
+  "features": "extra_ores:ore_emerald",
+  "step": "underground_ores"
+}

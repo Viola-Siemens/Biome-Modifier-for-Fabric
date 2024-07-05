@@ -227,7 +227,8 @@ public interface IModifiableBiome {
 			List<Holder<ConfiguredWorldCarver<?>>> list = this.carvers.get(step);
 			for(Holder<ConfiguredWorldCarver<?>> holder: carvers) {
 				if(!list.remove(holder)) {
-					this.warnMissing("Carver", step, "carvers");
+					Registry<ConfiguredWorldCarver<?>> registry = this.registryAccess.registryOrThrow(Registries.CONFIGURED_CARVER);
+					this.warnMissing("Carver", registry.getKey(holder.value()), "carvers");
 				}
 			}
 		}
@@ -251,7 +252,8 @@ public interface IModifiableBiome {
 			List<Holder<PlacedFeature>> list = this.features.get(stepOrdinal);
 			for(Holder<PlacedFeature> holder: features) {
 				if(!list.remove(holder)) {
-					this.warnMissing("Feature", step, "features");
+					Registry<PlacedFeature> registry = this.registryAccess.registryOrThrow(Registries.PLACED_FEATURE);
+					this.warnMissing("Feature", registry.getKey(holder.value()), "features");
 				}
 			}
 		}
@@ -299,7 +301,7 @@ public interface IModifiableBiome {
 				}
 			});
 		}
-		public void removeSpawnerCosts(List<EntityType<?>> types) {
+		public void removeSpawnerCosts(List<? extends EntityType<?>> types) {
 			types.forEach(type -> {
 				if(this.mobSpawnCosts.remove(type) == null) {
 					Registry<EntityType<?>> registry = this.registryAccess.registryOrThrow(Registries.ENTITY_TYPE);

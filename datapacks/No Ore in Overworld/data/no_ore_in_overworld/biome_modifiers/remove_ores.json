@@ -2,7 +2,7 @@
   "type": "biome_modifier:remove_features",
   "biomes": "#minecraft:is_overworld",
   "features": [
-   "minecraft:ore_coal_upper",
+    "minecraft:ore_coal_upper",
     "minecraft:ore_coal_lower",
     "minecraft:ore_iron_upper",
     "minecraft:ore_iron_middle",

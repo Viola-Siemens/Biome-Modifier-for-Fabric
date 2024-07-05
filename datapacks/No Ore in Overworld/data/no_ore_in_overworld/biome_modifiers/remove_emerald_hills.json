@@ -1,0 +1,6 @@
+{
+  "type": "biome_modifier:remove_features",
+  "biomes": "#minecraft:is_hill",
+  "features": "minecraft:ore_emerald",
+  "step": "underground_ores"
+}

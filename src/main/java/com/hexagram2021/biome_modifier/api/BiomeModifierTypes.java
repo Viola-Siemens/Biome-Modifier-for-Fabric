@@ -11,8 +11,10 @@ public final class BiomeModifierTypes {
 	public static final IBiomeModifierType REMOVE_FEATURES = register(BiomeModifierNames.REMOVE_FEATURES, () -> RemoveFeaturesBiomeModifier.CODEC);
 	public static final IBiomeModifierType ADD_SPAWNS = register(BiomeModifierNames.ADD_SPAWNS, () -> AddSpawnsBiomeModifier.CODEC);
 	public static final IBiomeModifierType REMOVE_SPAWNS = register(BiomeModifierNames.REMOVE_SPAWNS, () -> RemoveSpawnsBiomeModifier.CODEC);
-	//public static final IBiomeModifierType ADD_SPAWN_COSTS = register(BiomeModifierNames.ADD_SPAWN_COSTS, () -> AddSpawnCostsBiomeModifier.CODEC);
-	//public static final IBiomeModifierType REMOVE_SPAWN_COSTS = register(BiomeModifierNames.REMOVE_SPAWN_COSTS, () -> RemoveSpawnCostsBiomeModifier.CODEC);
+	public static final IBiomeModifierType ADD_SPAWN_COSTS = register(BiomeModifierNames.ADD_SPAWN_COSTS, () -> AddSpawnCostsBiomeModifier.CODEC);
+	public static final IBiomeModifierType REMOVE_SPAWN_COSTS = register(BiomeModifierNames.REMOVE_SPAWN_COSTS, () -> RemoveSpawnCostsBiomeModifier.CODEC);
+	public static final IBiomeModifierType ADD_CARVERS = register(BiomeModifierNames.ADD_CARVERS, () -> AddCarversBiomeModifier.CODEC);
+	public static final IBiomeModifierType REMOVE_CARVERS = register(BiomeModifierNames.REMOVE_CARVERS, () -> RemoveCarversBiomeModifier.CODEC);
 
 	private BiomeModifierTypes() {
 	}

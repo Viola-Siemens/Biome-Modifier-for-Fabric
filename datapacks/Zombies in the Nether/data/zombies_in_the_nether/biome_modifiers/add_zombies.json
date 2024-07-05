@@ -1,0 +1,13 @@
+{
+  "type": "biome_modifier:add_spawns",
+  "priority": 24,
+  "biomes": "#minecraft:is_nether",
+  "spawners": [
+    {
+      "type": "minecraft:zombie",
+      "weight": 50,
+      "minCount": 4,
+      "maxCount": 8
+    }
+  ]
+}

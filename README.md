@@ -140,14 +140,12 @@ If any entity type is missing from the registry, an error will be logged (won't 
 {
   "type": "biome_modifier:add_spawn_costs",
   "biomes": "<registry name(s) of biomes>",
-  "spawn_costs": [
-    {
-      "type": "<registry name of a single entity type>",
+  "spawn_costs": {
+    "<registry name of a single entity type>": {
       "charge": charge,
       "energy_budget": energy_budget
     }
-    //If you only add one spawner, you can also replace the list with the only object.
-  ]
+  }
 }
 ```
 
