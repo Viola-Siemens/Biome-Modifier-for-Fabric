@@ -1,0 +1,6 @@
+{
+  "type": "biome_modifier:remove_features",
+  "biomes": "minecraft:dripstone_caves",
+  "features": "minecraft:ore_copper_large",
+  "step": "underground_ores"
+}
