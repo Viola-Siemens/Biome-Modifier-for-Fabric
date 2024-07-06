@@ -43,7 +43,7 @@ Notice that `priority` field is optional. The smaller it is, the earlier it will
 
 ### Different Types of Biome Modifiers
 
-We provide 7 different types of biome modifiers:
+We provide 9 different types of biome modifiers currently:
 
 #### biome_modifier:none
 
@@ -66,7 +66,7 @@ If any placed feature is missing from the registry, an error will be logged (won
   "type": "biome_modifier:add_features",
   "biomes": "<registry name(s) of biomes>",
   "features": "<registry name of a single feature/list of registry names of features>",
-  "step": "<step of world generation>"
+  "step": "<step of decoration generation>"
 }
 ```
 
@@ -83,7 +83,7 @@ If any placed feature is missing from the registry, an error will be logged (won
   "type": "biome_modifier:remove_features",
   "biomes": "<registry name(s) of biomes>",
   "features": "<registry name of a single feature/list of registry names of features>",
-  "step": "<step of world generation>"
+  "step": "<step of decoration generation>"
 }
 ```
 
@@ -170,5 +170,56 @@ If any entity type is missing from the registry, an error will be logged (won't 
 }
 ```
 
+#### biome_modifier:add_carvers
+
+This biome modifier adds all placed features mentioned in `features` field to target biomes.
+
+If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
+
+```json
+{
+  "type": "biome_modifier:add_features",
+  "biomes": "<registry name(s) of biomes>",
+  "carvers": "<registry name of a single carver/list of registry names of carvers>",
+  "step": "<step of carver generation>"
+}
+```
+
+#### biome_modifier:remove_carvers
+
+This biome modifier removes all placed features mentioned in `features` field from target biomes.
+
+If any placed feature is missing from the target biomes, a warning will be logged and won't crash the game.
+
+If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
+
+```json
+{
+  "type": "biome_modifier:remove_features",
+  "biomes": "<registry name(s) of biomes>",
+  "carvers": "<registry name of a single carver/list of registry names of carvers>",
+  "step": "<step of carver generation>"
+}
+```
+
 ## Examples
 
+We provide 3 example datapacks for our mods:
+
+### Extra Ores
+
+This datapack adds extra ore blocks to the overworld.
+
+![X-Ray of a world using this datapack.](assets/extra_ores.png)
+
+### No Ore in Overworld
+
+This datapack removes all ore blocks to the overworld, and only keeps ore veins for players to obtain ores.
+
+![X-Ray of a world using this datapack. The only iron ore is placed on purpose.](assets/no_ore_in_overworld.jpg)
+
+### Zombies in the Nether
+
+This datapack makes zombie able to spawn in the nether.
+
+![Zombies spawn in nether waste.](assets/zombies_in_nether.png)
