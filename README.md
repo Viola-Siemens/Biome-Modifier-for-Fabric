@@ -172,13 +172,13 @@ If any entity type is missing from the registry, an error will be logged (won't 
 
 #### biome_modifier:add_carvers
 
-This biome modifier adds all placed features mentioned in `features` field to target biomes.
+This biome modifier adds all carvers mentioned in `carvers` field to target biomes.
 
-If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
+If any carver is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
-  "type": "biome_modifier:add_features",
+  "type": "biome_modifier:add_carvers",
   "biomes": "<registry name(s) of biomes>",
   "carvers": "<registry name of a single carver/list of registry names of carvers>",
   "step": "<step of carver generation>"
@@ -187,15 +187,15 @@ If any placed feature is missing from the registry, an error will be logged (won
 
 #### biome_modifier:remove_carvers
 
-This biome modifier removes all placed features mentioned in `features` field from target biomes.
+This biome modifier removes all carvers mentioned in `carvers` field from target biomes.
 
-If any placed feature is missing from the target biomes, a warning will be logged and won't crash the game.
+If any carver is missing from the target biomes, a warning will be logged and won't crash the game.
 
-If any placed feature is missing from the registry, an error will be logged (won't crash the game with safe mode).
+If any carver is missing from the registry, an error will be logged (won't crash the game with safe mode).
 
 ```json
 {
-  "type": "biome_modifier:remove_features",
+  "type": "biome_modifier:remove_carvers",
   "biomes": "<registry name(s) of biomes>",
   "carvers": "<registry name of a single carver/list of registry names of carvers>",
   "step": "<step of carver generation>"
