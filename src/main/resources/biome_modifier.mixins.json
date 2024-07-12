@@ -4,7 +4,8 @@
   "package": "com.hexagram2021.biome_modifier.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BiomeMixin"
+    "BiomeMixin",
+    "DimensionTypeMixin"
   ],
   "client": [
   ],

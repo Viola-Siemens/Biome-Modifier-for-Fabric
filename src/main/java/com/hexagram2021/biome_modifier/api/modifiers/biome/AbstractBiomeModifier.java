@@ -1,4 +1,4 @@
-package com.hexagram2021.biome_modifier.api.modifiers;
+package com.hexagram2021.biome_modifier.api.modifiers.biome;
 
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import net.minecraft.core.Holder;

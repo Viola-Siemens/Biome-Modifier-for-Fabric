@@ -1,4 +1,4 @@
-package com.hexagram2021.biome_modifier.api;
+package com.hexagram2021.biome_modifier.api.modifiers.biome;
 
 import net.minecraft.resources.ResourceLocation;
 

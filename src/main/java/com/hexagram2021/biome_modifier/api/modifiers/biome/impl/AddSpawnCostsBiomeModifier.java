@@ -1,9 +1,9 @@
-package com.hexagram2021.biome_modifier.api.modifiers.impl;
+package com.hexagram2021.biome_modifier.api.modifiers.biome.impl;
 
-import com.hexagram2021.biome_modifier.api.BiomeModifierTypes;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.BiomeModifierTypes;
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
-import com.hexagram2021.biome_modifier.api.modifiers.AbstractBiomeModifier;
-import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifierType;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.AbstractBiomeModifier;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.IBiomeModifierType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;

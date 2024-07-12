@@ -1,8 +1,8 @@
 package com.hexagram2021.biome_modifier.common.manager;
 
 import com.google.common.collect.ImmutableMap;
-import com.hexagram2021.biome_modifier.api.modifiers.AbstractBiomeModifier;
-import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifier;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.AbstractBiomeModifier;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.IBiomeModifier;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;

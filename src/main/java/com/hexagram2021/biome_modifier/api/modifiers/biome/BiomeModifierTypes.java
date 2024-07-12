@@ -1,7 +1,6 @@
-package com.hexagram2021.biome_modifier.api;
+package com.hexagram2021.biome_modifier.api.modifiers.biome;
 
-import com.hexagram2021.biome_modifier.api.modifiers.IBiomeModifierType;
-import com.hexagram2021.biome_modifier.api.modifiers.impl.*;
+import com.hexagram2021.biome_modifier.api.modifiers.biome.impl.*;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import net.minecraft.resources.ResourceLocation;
 

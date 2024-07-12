@@ -1,4 +1,4 @@
-package com.hexagram2021.biome_modifier.api.modifiers;
+package com.hexagram2021.biome_modifier.api.modifiers.biome;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
