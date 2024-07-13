@@ -14,6 +14,15 @@ public final class BiomeModifierTypes {
 	public static final IBiomeModifierType REMOVE_SPAWN_COSTS = register(BiomeModifierNames.REMOVE_SPAWN_COSTS, () -> RemoveSpawnCostsBiomeModifier.CODEC);
 	public static final IBiomeModifierType ADD_CARVERS = register(BiomeModifierNames.ADD_CARVERS, () -> AddCarversBiomeModifier.CODEC);
 	public static final IBiomeModifierType REMOVE_CARVERS = register(BiomeModifierNames.REMOVE_CARVERS, () -> RemoveCarversBiomeModifier.CODEC);
+	public static final IBiomeModifierType PRECIPITATION = register(BiomeModifierNames.PRECIPITATION, () -> Precipitation.CODEC);
+	public static final IBiomeModifierType TEMPERATURE = register(BiomeModifierNames.TEMPERATURE, () -> Temperature.CODEC);
+	public static final IBiomeModifierType DOWNFALL = register(BiomeModifierNames.DOWNFALL, () -> Downfall.CODEC);
+	public static final IBiomeModifierType TEMPERATURE_ADJUSTMENT = register(BiomeModifierNames.TEMPERATURE_ADJUSTMENT, () -> TemperatureAdjustment.CODEC);
+	public static final IBiomeModifierType CREATURE_SPAWN_PROBABILITY = register(BiomeModifierNames.CREATURE_SPAWN_PROBABILITY, () -> CreatureGenerationProbability.CODEC);
+	public static final IBiomeModifierType FOG_COLOR = register(BiomeModifierNames.FOG_COLOR, () -> FogColor.CODEC);
+	public static final IBiomeModifierType WATER_COLOR = register(BiomeModifierNames.WATER_COLOR, () -> WaterColor.CODEC);
+	public static final IBiomeModifierType WATER_FOG_COLOR = register(BiomeModifierNames.WATER_FOG_COLOR, () -> WaterFogColor.CODEC);
+	public static final IBiomeModifierType SKY_COLOR = register(BiomeModifierNames.SKY_COLOR, () -> SkyColor.CODEC);
 
 	private BiomeModifierTypes() {
 	}

@@ -60,7 +60,7 @@ public interface IModifiableBiome {
 		//generationSettings
 		final Map<GenerationStep.Carving, List<Holder<ConfiguredWorldCarver<?>>>> carvers;
 		final List<List<Holder<PlacedFeature>>> features;
-		//
+		//mobSettings
 		float creatureGenerationProbability;
 		final Map<MobCategory, List<MobSpawnSettings.SpawnerData>> spawners;
 		final Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> mobSpawnCosts;
