@@ -1,0 +1,13 @@
+{
+  "type": "biome_modifier:sky_color",
+  "biomes": [
+    "minecraft:desert",
+    "minecraft:badlands",
+    "minecraft:eroded_badlands"
+  ],
+  "color": {
+    "r": 208,
+    "g": 212,
+    "b": 148
+  }
+}

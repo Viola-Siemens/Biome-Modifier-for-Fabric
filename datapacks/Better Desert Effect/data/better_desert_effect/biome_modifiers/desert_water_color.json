@@ -1,0 +1,9 @@
+{
+  "type": "biome_modifier:water_color",
+  "biomes": [
+    "minecraft:desert",
+    "minecraft:badlands",
+    "minecraft:eroded_badlands"
+  ],
+  "color": 6589622
+}
