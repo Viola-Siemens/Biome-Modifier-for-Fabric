@@ -5,6 +5,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.dimension.DimensionType;
 import org.jetbrains.annotations.ApiStatus;
@@ -38,7 +39,11 @@ public interface IModifiableDimension {
 		TagKey<Block> infiniburn;
 		ResourceLocation effectsLocation;
 		float ambientLight;
-		DimensionType.MonsterSettings monsterSettings;
+		//monsterSettings
+		boolean piglinSafe;
+		boolean hasRaids;
+		IntProvider monsterSpawnLightTest;
+		int monsterSpawnBlockLightLimit;
 
 		public DimensionModificationParametersList(RegistryAccess registryAccess, DimensionType dimensionType) {
 			this.registryAccess = registryAccess;
@@ -57,7 +62,11 @@ public interface IModifiableDimension {
 			this.infiniburn = dimensionType.infiniburn();
 			this.effectsLocation = dimensionType.effectsLocation();
 			this.ambientLight = dimensionType.ambientLight();
-			this.monsterSettings = dimensionType.monsterSettings();
+			DimensionType.MonsterSettings monsterSettings = dimensionType.monsterSettings();
+			this.piglinSafe = monsterSettings.piglinSafe();
+			this.hasRaids = monsterSettings.hasRaids();
+			this.monsterSpawnLightTest = monsterSettings.monsterSpawnLightTest();
+			this.monsterSpawnBlockLightLimit = monsterSettings.monsterSpawnBlockLightLimit();
 		}
 
 		public OptionalLong fixedTime() {
@@ -158,11 +167,32 @@ public interface IModifiableDimension {
 			this.ambientLight = ambientLight;
 		}
 
-		public DimensionType.MonsterSettings monsterSettings() {
-			return this.monsterSettings;
+		public boolean piglinSafe() {
+			return this.piglinSafe;
 		}
-		public void setMonsterSettings(DimensionType.MonsterSettings monsterSettings) {
-			this.monsterSettings = monsterSettings;
+		public void setPiglinSafe(boolean piglinSafe) {
+			this.piglinSafe = piglinSafe;
+		}
+
+		public boolean hasRaids() {
+			return this.hasRaids;
+		}
+		public void setHasRaids(boolean hasRaids) {
+			this.hasRaids = hasRaids;
+		}
+
+		public IntProvider monsterSpawnLightTest() {
+			return this.monsterSpawnLightTest;
+		}
+		public void setMonsterSpawnLightTest(IntProvider monsterSpawnLightTest) {
+			this.monsterSpawnLightTest = monsterSpawnLightTest;
+		}
+
+		public int monsterSpawnBlockLightLimit() {
+			return this.monsterSpawnBlockLightLimit;
+		}
+		public void setMonsterSpawnBlockLightLimit(int monsterSpawnBlockLightLimit) {
+			this.monsterSpawnBlockLightLimit = monsterSpawnBlockLightLimit;
 		}
 
 		public boolean hasError() {
@@ -181,27 +211,9 @@ public interface IModifiableDimension {
 		}
 
 		@ApiStatus.Internal
-		public void warnExisting(String existing, @Nullable Object object, String lookup) {
-			this.sendFirstMessage();
-			BMLogger.warn("%s %s already exists in %s.".formatted(existing, object, lookup));
-		}
-
-		@ApiStatus.Internal
-		public void warnMissing(String missing, @Nullable Object object, String lookup) {
-			this.sendFirstMessage();
-			BMLogger.warn("%s %s does not exist in %s.".formatted(missing, object, lookup));
-		}
-
-		@ApiStatus.Internal
-		public void error(ResourceLocation registry, ResourceLocation object) {
-			this.sendFirstMessage();
-			BMLogger.error("Registry %s does not contain entry %s. This may cause by missing or version-mismatched dependencies.".formatted(registry, object));
-		}
-
-		@ApiStatus.Internal
 		public void error(Throwable e) {
 			this.sendFirstMessage();
-			BMLogger.error("Unexpected error occurs. This modifier will be ignored. Don't report to Dimension Modifier, report to the datapack.\n", e);
+			BMLogger.error("Unexpected error occurs. This dimension modifier will be ignored. Don't report to Biome Modifier, report to the datapack.\n", e);
 		}
 	}
 }

@@ -14,7 +14,7 @@ public class CreatureGenerationProbability extends AbstractBiomeModifier {
 			instance -> instance.group(
 					Biome.LIST_CODEC.fieldOf("biomes").forGetter(CreatureGenerationProbability::biomes),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(CreatureGenerationProbability::priority),
-					Codec.FLOAT.fieldOf("creature_spawn_probability").forGetter(CreatureGenerationProbability::creatureGenerationProbability)
+					Codec.floatRange(0.0F, 0.9999999F).fieldOf("creature_spawn_probability").forGetter(CreatureGenerationProbability::creatureGenerationProbability)
 			).apply(instance, CreatureGenerationProbability::new)
 	);
 

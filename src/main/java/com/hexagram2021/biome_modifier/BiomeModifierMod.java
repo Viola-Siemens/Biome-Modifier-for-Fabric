@@ -3,6 +3,7 @@ package com.hexagram2021.biome_modifier;
 import com.hexagram2021.biome_modifier.api.modifiers.biome.BiomeModifierTypes;
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import com.hexagram2021.biome_modifier.api.IModifiableDimension;
+import com.hexagram2021.biome_modifier.api.modifiers.dimension.DimensionModifierTypes;
 import com.hexagram2021.biome_modifier.common.manager.*;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import net.fabricmc.api.ModInitializer;
@@ -23,6 +24,7 @@ public class BiomeModifierMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		BiomeModifierTypes.init();
+		DimensionModifierTypes.init();
 		BiomeModifierRegistries.init();
 		ServerLifecycleEvents.SERVER_STARTING.register(BiomeModifierMod::onServerAboutToStart);
 	}

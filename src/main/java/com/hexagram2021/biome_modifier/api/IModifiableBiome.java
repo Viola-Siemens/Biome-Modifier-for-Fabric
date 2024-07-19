@@ -346,7 +346,7 @@ public interface IModifiableBiome {
 		@ApiStatus.Internal
 		public void error(Throwable e) {
 			this.sendFirstMessage();
-			BMLogger.error("Unexpected error occurs. This modifier will be ignored. Don't report to Biome Modifier, report to the datapack.\n", e);
+			BMLogger.error("Unexpected error occurs. This biome modifier will be ignored. Don't report to Biome Modifier, report to the datapack.\n", e);
 		}
 	}
 }

@@ -238,6 +238,6 @@ public class DimensionTypeMixin implements IModifiableDimension {
 		this.biome_modifier$infiniburn = list.infiniburn();
 		this.biome_modifier$effectsLocation = list.effectsLocation();
 		this.biome_modifier$ambientLight = list.ambientLight();
-		this.biome_modifier$monsterSettings = list.monsterSettings();
+		this.biome_modifier$monsterSettings = new DimensionType.MonsterSettings(list.piglinSafe(), list.hasRaids(), list.monsterSpawnLightTest(), list.monsterSpawnBlockLightLimit());
 	}
 }
