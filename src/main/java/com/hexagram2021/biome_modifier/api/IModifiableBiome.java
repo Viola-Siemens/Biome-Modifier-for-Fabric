@@ -29,12 +29,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public interface IModifiableBiome {
-	BiomeModificationParametersList biome_modifier$getBiomeModificationParametersList(RegistryAccess registryAccess);
-	void biome_modifier$modifyBiome(BiomeModificationParametersList list);
+public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeModificationParametersList> {
+	BiomeModificationParametersList biome_modifier$getModificationParametersList(RegistryAccess registryAccess);
+	void biome_modifier$modify(BiomeModificationParametersList list);
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	final class BiomeModificationParametersList {
+	final class BiomeModificationParametersList implements IErrorHandlerParametersList {
 		final RegistryAccess registryAccess;
 		@Nullable
 		final ResourceLocation biomeId;
@@ -310,9 +310,11 @@ public interface IModifiableBiome {
 			});
 		}
 
+		@Override
 		public boolean hasError() {
 			return this.error > 0;
 		}
+		@Override
 		public int errorCount() {
 			return this.error;
 		}
@@ -337,12 +339,7 @@ public interface IModifiableBiome {
 			BMLogger.warn("%s %s does not exist in %s.".formatted(missing, object, lookup));
 		}
 
-		@ApiStatus.Internal
-		public void error(ResourceLocation registry, ResourceLocation object) {
-			this.sendFirstMessage();
-			BMLogger.error("Registry %s does not contain entry %s. This may cause by missing or version-mismatched dependencies.".formatted(registry, object));
-		}
-
+		@Override
 		@ApiStatus.Internal
 		public void error(Throwable e) {
 			this.sendFirstMessage();

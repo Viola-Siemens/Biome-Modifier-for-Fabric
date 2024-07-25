@@ -13,12 +13,12 @@ import org.jetbrains.annotations.ApiStatus;
 import javax.annotation.Nullable;
 import java.util.OptionalLong;
 
-public interface IModifiableDimension {
-	DimensionModificationParametersList biome_modifier$getDimensionModificationParametersList(RegistryAccess registryAccess);
-	void biome_modifier$modifyDimension(DimensionModificationParametersList list);
+public interface IModifiableDimension extends IModifiableApi<IModifiableDimension.DimensionModificationParametersList> {
+	DimensionModificationParametersList biome_modifier$getModificationParametersList(RegistryAccess registryAccess);
+	void biome_modifier$modify(DimensionModificationParametersList list);
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	final class DimensionModificationParametersList {
+	final class DimensionModificationParametersList implements IErrorHandlerParametersList {
 		final RegistryAccess registryAccess;
 		@Nullable
 		final ResourceLocation dimensionId;
@@ -195,9 +195,11 @@ public interface IModifiableDimension {
 			this.monsterSpawnBlockLightLimit = monsterSpawnBlockLightLimit;
 		}
 
+		@Override
 		public boolean hasError() {
 			return this.error > 0;
 		}
+		@Override
 		public int errorCount() {
 			return this.error;
 		}
@@ -210,6 +212,7 @@ public interface IModifiableDimension {
 			this.error += 1;
 		}
 
+		@Override
 		@ApiStatus.Internal
 		public void error(Throwable e) {
 			this.sendFirstMessage();

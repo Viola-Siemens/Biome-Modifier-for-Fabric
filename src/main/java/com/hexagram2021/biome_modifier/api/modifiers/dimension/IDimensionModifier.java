@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.hexagram2021.biome_modifier.api.IModifiableDimension;
+import com.hexagram2021.biome_modifier.api.modifiers.IModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
 import net.minecraft.Util;
@@ -12,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.dimension.DimensionType;
 
-public interface IDimensionModifier {
+public interface IDimensionModifier extends IModifier<DimensionType, IModifiableDimension.DimensionModificationParametersList> {
 	/**
 	 * Can this modifier modify a certain dimension? (Matching "dimensions" field.)
 	 *
@@ -20,12 +21,14 @@ public interface IDimensionModifier {
 	 *
 	 * @return true if this modifier can modify the input dimension.
 	 */
+	@Override
 	boolean canModify(Holder<DimensionType> dimension);
 	/**
 	 * Apply the modification to a dimension.
 	 *
 	 * @param list the "parameters list" of a registered dimension to be modified.
 	 */
+	@Override
 	void modify(IModifiableDimension.DimensionModificationParametersList list);
 
 	IDimensionModifierType type();

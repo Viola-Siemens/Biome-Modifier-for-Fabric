@@ -6,14 +6,14 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class BiomeModifierTypes {
 	public static final IBiomeModifierType NONE = register(BiomeModifierNames.NONE, () -> NoneBiomeModifier.CODEC);
-	public static final IBiomeModifierType ADD_FEATURES = register(BiomeModifierNames.ADD_FEATURES, () -> AddFeaturesBiomeModifier.CODEC);
-	public static final IBiomeModifierType REMOVE_FEATURES = register(BiomeModifierNames.REMOVE_FEATURES, () -> RemoveFeaturesBiomeModifier.CODEC);
-	public static final IBiomeModifierType ADD_SPAWNS = register(BiomeModifierNames.ADD_SPAWNS, () -> AddSpawnsBiomeModifier.CODEC);
-	public static final IBiomeModifierType REMOVE_SPAWNS = register(BiomeModifierNames.REMOVE_SPAWNS, () -> RemoveSpawnsBiomeModifier.CODEC);
-	public static final IBiomeModifierType ADD_SPAWN_COSTS = register(BiomeModifierNames.ADD_SPAWN_COSTS, () -> AddSpawnCostsBiomeModifier.CODEC);
-	public static final IBiomeModifierType REMOVE_SPAWN_COSTS = register(BiomeModifierNames.REMOVE_SPAWN_COSTS, () -> RemoveSpawnCostsBiomeModifier.CODEC);
+	public static final IBiomeModifierType ADD_FEATURES = register(BiomeModifierNames.ADD_FEATURES, () -> AddFeatures.CODEC);
+	public static final IBiomeModifierType REMOVE_FEATURES = register(BiomeModifierNames.REMOVE_FEATURES, () -> RemoveFeatures.CODEC);
+	public static final IBiomeModifierType ADD_SPAWNS = register(BiomeModifierNames.ADD_SPAWNS, () -> AddSpawns.CODEC);
+	public static final IBiomeModifierType REMOVE_SPAWNS = register(BiomeModifierNames.REMOVE_SPAWNS, () -> RemoveSpawns.CODEC);
+	public static final IBiomeModifierType ADD_SPAWN_COSTS = register(BiomeModifierNames.ADD_SPAWN_COSTS, () -> AddSpawnCosts.CODEC);
+	public static final IBiomeModifierType REMOVE_SPAWN_COSTS = register(BiomeModifierNames.REMOVE_SPAWN_COSTS, () -> RemoveSpawnCosts.CODEC);
 	public static final IBiomeModifierType ADD_CARVERS = register(BiomeModifierNames.ADD_CARVERS, () -> AddCarversBiomeModifier.CODEC);
-	public static final IBiomeModifierType REMOVE_CARVERS = register(BiomeModifierNames.REMOVE_CARVERS, () -> RemoveCarversBiomeModifier.CODEC);
+	public static final IBiomeModifierType REMOVE_CARVERS = register(BiomeModifierNames.REMOVE_CARVERS, () -> RemoveCarvers.CODEC);
 	public static final IBiomeModifierType PRECIPITATION = register(BiomeModifierNames.PRECIPITATION, () -> Precipitation.CODEC);
 	public static final IBiomeModifierType TEMPERATURE = register(BiomeModifierNames.TEMPERATURE, () -> Temperature.CODEC);
 	public static final IBiomeModifierType DOWNFALL = register(BiomeModifierNames.DOWNFALL, () -> Downfall.CODEC);

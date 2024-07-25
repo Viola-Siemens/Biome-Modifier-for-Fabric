@@ -11,20 +11,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public class AddFeaturesBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<AddFeaturesBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class AddFeatures extends AbstractBiomeModifier {
+	public static final Codec<AddFeatures> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddFeaturesBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddFeaturesBiomeModifier::priority),
-					PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(AddFeaturesBiomeModifier::features),
-					GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(AddFeaturesBiomeModifier::step)
-			).apply(instance, AddFeaturesBiomeModifier::new)
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddFeatures::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddFeatures::priority),
+					PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(AddFeatures::features),
+					GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(AddFeatures::step)
+			).apply(instance, AddFeatures::new)
 	);
 
 	final HolderSet<PlacedFeature> features;
 	final GenerationStep.Decoration step;
 
-	protected AddFeaturesBiomeModifier(HolderSet<Biome> biomes, int priority, HolderSet<PlacedFeature> features, GenerationStep.Decoration step) {
+	protected AddFeatures(HolderSet<Biome> biomes, int priority, HolderSet<PlacedFeature> features, GenerationStep.Decoration step) {
 		super(biomes, priority);
 		this.features = features;
 		this.step = step;

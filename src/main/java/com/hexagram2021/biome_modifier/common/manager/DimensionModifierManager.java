@@ -1,6 +1,7 @@
 package com.hexagram2021.biome_modifier.common.manager;
 
 import com.google.common.collect.ImmutableMap;
+import com.hexagram2021.biome_modifier.api.IModifiableDimension;
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.AbstractDimensionModifier;
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.IDimensionModifier;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
@@ -13,8 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-public class DimensionModifierManager {
+public class DimensionModifierManager implements IModifierManager<IDimensionModifier, AbstractDimensionModifier, IModifiableDimension> {
 	public static final DimensionModifierManager INSTANCE = new DimensionModifierManager();
 
 	@Nullable
@@ -25,6 +27,7 @@ public class DimensionModifierManager {
 	public DimensionModifierManager() {
 	}
 
+	@Override
 	public void load(RegistryAccess registryAccess) {
 		if(this.frozenQueue != null) {
 			throw new IllegalStateException("Registry is already frozen!");
@@ -34,6 +37,7 @@ public class DimensionModifierManager {
 		this.dimensionModifiersByName = builder.build();
 	}
 
+	@Override
 	public void freeze() {
 		if(this.frozenQueue != null) {
 			BMLogger.warn("freeze() called in the frozen registry!");
@@ -45,23 +49,33 @@ public class DimensionModifierManager {
 		}
 	}
 
-	public Optional<IDimensionModifier> getDimensionModifier(ResourceLocation id) {
+	@Override
+	public Optional<IDimensionModifier> getModifier(ResourceLocation id) {
 		return Optional.ofNullable(this.dimensionModifiersByName.get(id));
 	}
 
-	public Collection<ResourceLocation> getAllDimensionModifierIds() {
+	@Override
+	public Collection<ResourceLocation> getAllModifierIds() {
 		return this.dimensionModifiersByName.keySet();
 	}
 
-	public Collection<IDimensionModifier> getAllDimensionModifiers() {
+	@Override
+	public Collection<IDimensionModifier> getAllModifiers() {
 		return this.dimensionModifiersByName.values();
 	}
 
-	public void applyAllDimensionModifiers(BiConsumer<ResourceLocation, AbstractDimensionModifier> consumer) {
+	@Override
+	public void applyAllModifiers(BiConsumer<ResourceLocation, AbstractDimensionModifier> consumer) {
 		if(this.frozenQueue == null) {
 			throw new IllegalStateException("Try to apply dimension modifiers when registry is not frozen!");
 		}
 		this.frozenQueue.forEach(holder -> consumer.accept(holder.id(), holder.dimensionModifier()));
+	}
+
+	@Override
+	public void tryCastOrElseThrow(Object object, Consumer<IModifiableDimension> consumer) {
+		IModifiableDimension modifiableDimension = (IModifiableDimension)object;
+		consumer.accept(modifiableDimension);
 	}
 
 	record DimensionModifierHolder(ResourceLocation id, AbstractDimensionModifier dimensionModifier) implements Comparable<DimensionModifierHolder> {

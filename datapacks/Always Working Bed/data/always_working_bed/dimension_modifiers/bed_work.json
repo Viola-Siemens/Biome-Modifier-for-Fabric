@@ -1,0 +1,8 @@
+{
+  "type": "biome_modifier:bed_works",
+  "dimension_types": [
+    "minecraft:the_nether",
+    "minecraft:the_end"
+  ],
+  "bed_works": true
+}

@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
+import com.hexagram2021.biome_modifier.api.modifiers.IModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
 import net.minecraft.Util;
@@ -12,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
 
-public interface IBiomeModifier {
+public interface IBiomeModifier extends IModifier<Biome, IModifiableBiome.BiomeModificationParametersList> {
 	/**
 	 * Can this modifier modify a certain biome? (Matching "biomes" field.)
 	 *
@@ -20,12 +21,14 @@ public interface IBiomeModifier {
 	 *
 	 * @return true if this modifier can modify the input biome.
 	 */
+	@Override
 	boolean canModify(Holder<Biome> biome);
 	/**
 	 * Apply the modification to a biome.
 	 *
 	 * @param list the "parameters list" of a registered biome to be modified.
 	 */
+	@Override
 	void modify(IModifiableBiome.BiomeModificationParametersList list);
 
 	IBiomeModifierType type();

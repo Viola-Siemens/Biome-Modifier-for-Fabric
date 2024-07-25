@@ -4,7 +4,7 @@
 
 ## Abstract
 
-This is a library mod that allows users utilize datapacks to modify biomes easily and compatibly.
+This is a library mod that allows users utilize datapacks to modify biomes, dimensions and noise generators easily and compatibly.
 
 ## Usage for Developers
 
@@ -26,7 +26,7 @@ Let's make this work for Fabric!
 
 Datapack developers should put all biome modifiers (with format `*.json`) on `data/<modid>/biome_modifiers/` directory. With this mod, all biome modifiers will be applied on each biome.
 
-All biome modifiers should follow this format:
+All [biome / dimension / noise] generator modifiers should follow this format:
 
 ```json
 {
@@ -36,16 +36,32 @@ All biome modifiers should follow this format:
   "<other keys...>": "<other values...>"
 }
 ```
+```json
+{
+"type": "<modifier type>",
+"dimension_types": "<registry name of a single dimension/list of registry names of dimensions/a tag of dimensions>",
+"priority": priority,
+"<other keys...>": "<other values...>"
+}
+```
+```json
+{
+"type": "<modifier type>",
+"noise_settings": "<registry name of a single noise generator/list of registry names of noise generators/a tag of noise generators>",
+"priority": priority,
+"<other keys...>": "<other values...>"
+}
+```
 
-Where `type` stands for the type of biome modifiers, and `biome` stands for all biomes to be modified.
+Where `type` stands for the type of [biome / dimension / noise generator] modifiers, and [`biomes` / `dimension_types` / `noise_settings`] stands for all [biomes / dimensions / noise generators] to be modified.
 
 Notice that `priority` field is optional. The smaller it is, the earlier it will be applied to the biomes (for example, modifiers with priority 99 will be applied earlier than modifiers with priority 100). The default value is 1000.
 
 ### Different Types of Biome Modifiers
 
-We provide 9 different types of biome modifiers currently:
+We provide 18 different types of biome modifiers:
 
-#### biome_modifier:none
+#### none
 
 This type allows developers to replace other biome modifiers in other datapacks.
 
@@ -55,7 +71,7 @@ This type allows developers to replace other biome modifiers in other datapacks.
 }
 ```
 
-#### biome_modifier:add_features
+#### add_features
 
 This biome modifier adds all placed features mentioned in `features` field to target biomes.
 
@@ -70,7 +86,7 @@ If any placed feature is missing from the registry, an error will be logged (won
 }
 ```
 
-#### biome_modifier:remove_features
+#### remove_features
 
 This biome modifier removes all placed features mentioned in `features` field from target biomes.
 
@@ -87,7 +103,7 @@ If any placed feature is missing from the registry, an error will be logged (won
 }
 ```
 
-#### biome_modifier:add_spawns
+#### add_spawns
 
 This biome modifier adds all entity spawns mentioned in `spawns` field to target biomes.
 
@@ -109,7 +125,7 @@ If any entity type is missing from the registry, an error will be logged (won't 
 }
 ```
 
-#### biome_modifier:remove_spawns
+#### remove_spawns
 
 This biome modifier removes all entity spawns mentioned in `entity_types` field from target biomes.
 
@@ -128,7 +144,7 @@ If any entity type is missing from the registry, an error will be logged (won't 
 }
 ```
 
-#### biome_modifier:add_spawn_costs
+#### add_spawn_costs
 
 This biome modifier adds all entity spawns mentioned in `spawn_costs` field to target biomes.
 
@@ -149,7 +165,7 @@ If any entity type is missing from the registry, an error will be logged (won't 
 }
 ```
 
-#### biome_modifier:remove_spawn_costs
+#### remove_spawn_costs
 
 This biome modifier removes all entity spawns mentioned in `entity_types` field from target biomes.
 
@@ -170,7 +186,7 @@ If any entity type is missing from the registry, an error will be logged (won't 
 }
 ```
 
-#### biome_modifier:add_carvers
+#### add_carvers
 
 This biome modifier adds all carvers mentioned in `carvers` field to target biomes.
 
@@ -185,7 +201,7 @@ If any carver is missing from the registry, an error will be logged (won't crash
 }
 ```
 
-#### biome_modifier:remove_carvers
+#### remove_carvers
 
 This biome modifier removes all carvers mentioned in `carvers` field from target biomes.
 
@@ -202,9 +218,167 @@ If any carver is missing from the registry, an error will be logged (won't crash
 }
 ```
 
+#### creature_spawn_probability
+
+This biome modifier changes probability of creature spawn from target biomes.
+
+`creature_spawn_probability` should be a float value between 0 (inclusive) and 1 (exclusive).
+
+```json
+{
+  "type": "biome_modifier:creature_spawn_probability",
+  "biomes": "<registry name(s) of biomes>",
+  "creature_spawn_probability": probability
+}
+```
+
+#### downfall
+
+This biome modifier changes downfall of target biomes, which only affects grass and foliage color.
+
+`downfall` should be a float value.
+
+```json
+{
+  "type": "biome_modifier:downfall",
+  "biomes": "<registry name(s) of biomes>",
+  "downfall": downfall
+}
+```
+
+#### temperature
+
+This biome modifier changes temperature of target biomes, which only affects grass and foliage color.
+
+`temperature` should be a float value.
+
+```json
+{
+  "type": "biome_modifier:temperature",
+  "biomes": "<registry name(s) of biomes>",
+  "temperature": temperature
+}
+```
+
+#### precipitation
+
+This biome modifier changes whether target biomes has precipitation or not.
+
+`has_precipitation` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:precipitation",
+  "biomes": "<registry name(s) of biomes>",
+  "has_precipitation": has_precipitation
+}
+```
+
+#### fog_color & sky_color & water_color & water_fog_color
+
+This biome modifier changes whether target biomes has precipitation or not.
+
+`color` should be an integer value between 0 (inclusive) and 16777216 (exclusive), or an object like `{"r": r, "g": g, "b", b}`, where `r` and `g` and `b` are integers between 0 (inclusive) and 256 (exclusive).
+
+```json
+{
+  "type": "biome_modifier:[fog_color/sky_color/water_color/water_fog_color]",
+  "biomes": "<registry name(s) of biomes>",
+  "color": color
+}
+```
+
+#### temperature_adjustment
+
+This biome modifier changes whether target biomes has precipitation or not.
+
+`color` should be an integer value between 0 (inclusive) and 16777216 (exclusive), or an object like `{"r": r, "g": g, "b", b}`, where `r` and `g` and `b` are integers between 0 (inclusive) and 256 (exclusive).
+
+```json
+{
+  "type": "biome_modifier:temperature_adjustment",
+  "biomes": "<registry name(s) of biomes>",
+  "temperature_modifier": "[none/frozen]"
+}
+```
+
+### Different Types of Dimension Modifiers
+
+We provide 19 different types of biome modifiers:
+
+#### none
+
+This type allows developers to replace other dimension modifiers in other datapacks.
+
+```json
+{
+  "type": "biome_modifier:none"
+}
+```
+
+#### fixed_time
+
+#### sky_light
+
+#### ceiling
+
+#### ultra_warm
+
+#### natural
+
+#### coordinate_scale
+
+#### bed_works
+
+#### respawn_anchor_works
+
+#### min_y
+
+#### height
+
+#### logical_height
+
+#### infiniburn
+
+#### effects
+
+#### ambient_light
+
+#### piglin_safe
+
+#### raids
+
+#### monster_spawn_light
+
+#### monster_spawn_block_light_limit
+
+### Different Types of Noise Generator Modifiers
+
+We provide 6 different types of noise generator modifiers currently:
+
+#### none
+
+This type allows developers to replace other noise generator modifiers in other datapacks.
+
+```json
+{
+  "type": "biome_modifier:none"
+}
+```
+
+#### default_block
+
+#### default_fluid
+
+#### sea_level
+
+#### aquifers
+
+#### ore_veins
+
 ## Examples
 
-We provide 3 example datapacks for our mods:
+We provide 4 example datapacks for our mods:
 
 ### Extra Ores
 
@@ -223,3 +397,7 @@ This datapack removes all ore blocks to the overworld, and only keeps ore veins 
 This datapack makes zombie able to spawn in the nether.
 
 ![Zombies spawn in nether waste.](assets/zombies_in_nether.png)
+
+### Always Working Bed
+
+This datapack removes "Intentional Game Design" from the nether and the end.

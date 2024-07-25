@@ -97,7 +97,7 @@ public class BiomeMixin implements IModifiableBiome {
 	}
 
 	@Override
-	public BiomeModificationParametersList biome_modifier$getBiomeModificationParametersList(RegistryAccess registryAccess) {
+	public BiomeModificationParametersList biome_modifier$getModificationParametersList(RegistryAccess registryAccess) {
 		return new BiomeModificationParametersList(
 				registryAccess,
 				registryAccess.registryOrThrow(Registries.BIOME).getKey((Biome)(Object)this),
@@ -109,11 +109,12 @@ public class BiomeMixin implements IModifiableBiome {
 	}
 
 	@Override
-	public void biome_modifier$modifyBiome(BiomeModificationParametersList list) {
+	public void biome_modifier$modify(BiomeModificationParametersList list) {
 		if(this.biome_modifier$isModified) {
-			throw new IllegalStateException("Biome has already modified!");
+			throw new IllegalStateException("Biome has already been modified!");
 		}
 		this.biome_modifier$isModified = true;
+
 		this.biome_modifier$climateSettings = new Biome.ClimateSettings(
 				list.hasPrecipitation(), list.temperature(), list.temperatureModifier(), list.downfall()
 		);

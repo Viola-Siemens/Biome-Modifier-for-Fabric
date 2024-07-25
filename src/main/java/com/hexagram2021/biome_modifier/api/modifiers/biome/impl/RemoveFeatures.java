@@ -11,20 +11,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public class RemoveFeaturesBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<RemoveFeaturesBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class RemoveFeatures extends AbstractBiomeModifier {
+	public static final Codec<RemoveFeatures> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveFeaturesBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveFeaturesBiomeModifier::priority),
-					PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(RemoveFeaturesBiomeModifier::features),
-					GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(RemoveFeaturesBiomeModifier::step)
-			).apply(instance, RemoveFeaturesBiomeModifier::new)
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveFeatures::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveFeatures::priority),
+					PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(RemoveFeatures::features),
+					GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(RemoveFeatures::step)
+			).apply(instance, RemoveFeatures::new)
 	);
 
 	final HolderSet<PlacedFeature> features;
 	final GenerationStep.Decoration step;
 
-	protected RemoveFeaturesBiomeModifier(HolderSet<Biome> biomes, int priority, HolderSet<PlacedFeature> features, GenerationStep.Decoration step) {
+	protected RemoveFeatures(HolderSet<Biome> biomes, int priority, HolderSet<PlacedFeature> features, GenerationStep.Decoration step) {
 		super(biomes, priority);
 		this.features = features;
 		this.step = step;

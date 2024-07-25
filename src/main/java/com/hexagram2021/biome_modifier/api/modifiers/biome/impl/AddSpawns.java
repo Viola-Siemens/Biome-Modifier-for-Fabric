@@ -12,18 +12,18 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import java.util.List;
 
-public class AddSpawnsBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<AddSpawnsBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class AddSpawns extends AbstractBiomeModifier {
+	public static final Codec<AddSpawns> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawnsBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddSpawnsBiomeModifier::priority),
-					Codec.list(MobSpawnSettings.SpawnerData.CODEC).fieldOf("spawners").forGetter(AddSpawnsBiomeModifier::spawners)
-			).apply(instance, AddSpawnsBiomeModifier::new)
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawns::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddSpawns::priority),
+					Codec.list(MobSpawnSettings.SpawnerData.CODEC).fieldOf("spawners").forGetter(AddSpawns::spawners)
+			).apply(instance, AddSpawns::new)
 	);
 
 	final List<MobSpawnSettings.SpawnerData> spawners;
 
-	protected AddSpawnsBiomeModifier(HolderSet<Biome> biomes, int priority, List<MobSpawnSettings.SpawnerData> spawners) {
+	protected AddSpawns(HolderSet<Biome> biomes, int priority, List<MobSpawnSettings.SpawnerData> spawners) {
 		super(biomes, priority);
 		this.spawners = spawners;
 	}

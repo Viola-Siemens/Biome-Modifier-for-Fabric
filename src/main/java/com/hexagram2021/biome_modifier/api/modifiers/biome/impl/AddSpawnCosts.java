@@ -14,19 +14,19 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import java.util.Map;
 
-public class AddSpawnCostsBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<AddSpawnCostsBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class AddSpawnCosts extends AbstractBiomeModifier {
+	public static final Codec<AddSpawnCosts> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawnCostsBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddSpawnCostsBiomeModifier::priority),
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddSpawnCosts::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddSpawnCosts::priority),
 					Codec.simpleMap(BuiltInRegistries.ENTITY_TYPE.byNameCodec(), MobSpawnSettings.MobSpawnCost.CODEC, BuiltInRegistries.ENTITY_TYPE)
-							.fieldOf("spawn_costs").forGetter(AddSpawnCostsBiomeModifier::spawnerCosts)
-			).apply(instance, AddSpawnCostsBiomeModifier::new)
+							.fieldOf("spawn_costs").forGetter(AddSpawnCosts::spawnerCosts)
+			).apply(instance, AddSpawnCosts::new)
 	);
 
 	final Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnerCosts;
 
-	protected AddSpawnCostsBiomeModifier(HolderSet<Biome> biomes, int priority, Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnerCosts) {
+	protected AddSpawnCosts(HolderSet<Biome> biomes, int priority, Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnerCosts) {
 		super(biomes, priority);
 		this.spawnerCosts = spawnerCosts;
 	}

@@ -19,6 +19,9 @@ import java.util.OptionalLong;
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @Mixin(value = DimensionType.class, priority = 53639)
 public class DimensionTypeMixin implements IModifiableDimension {
+	@Unique
+	private boolean biome_modifier$isModified = false;
+
 	@SuppressWarnings("NotNullFieldNotInitialized")
 	@Unique
 	OptionalLong biome_modifier$fixedTime;
@@ -218,12 +221,17 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	}
 
 	@Override
-	public DimensionModificationParametersList biome_modifier$getDimensionModificationParametersList(RegistryAccess registryAccess) {
+	public DimensionModificationParametersList biome_modifier$getModificationParametersList(RegistryAccess registryAccess) {
 		return new DimensionModificationParametersList(registryAccess, (DimensionType)(Object)this);
 	}
 
 	@Override
-	public void biome_modifier$modifyDimension(DimensionModificationParametersList list) {
+	public void biome_modifier$modify(DimensionModificationParametersList list) {
+		if(this.biome_modifier$isModified) {
+			throw new IllegalStateException("Dimension has already been modified!");
+		}
+		this.biome_modifier$isModified = true;
+
 		this.biome_modifier$fixedTime = list.fixedTime();
 		this.biome_modifier$hasSkyLight = list.hasSkyLight();
 		this.biome_modifier$hasCeiling = list.hasCeiling();

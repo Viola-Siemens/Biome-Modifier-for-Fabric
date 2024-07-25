@@ -13,18 +13,18 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.biome.Biome;
 
-public class RemoveSpawnCostsBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<RemoveSpawnCostsBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class RemoveSpawnCosts extends AbstractBiomeModifier {
+	public static final Codec<RemoveSpawnCosts> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveSpawnCostsBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveSpawnCostsBiomeModifier::priority),
-					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE).fieldOf("entity_types").forGetter(RemoveSpawnCostsBiomeModifier::entityTypes)
-			).apply(instance, RemoveSpawnCostsBiomeModifier::new)
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveSpawnCosts::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveSpawnCosts::priority),
+					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE).fieldOf("entity_types").forGetter(RemoveSpawnCosts::entityTypes)
+			).apply(instance, RemoveSpawnCosts::new)
 	);
 
 	final HolderSet<EntityType<?>> entityTypes;
 
-	protected RemoveSpawnCostsBiomeModifier(HolderSet<Biome> biomes, int priority, HolderSet<EntityType<?>> entityTypes) {
+	protected RemoveSpawnCosts(HolderSet<Biome> biomes, int priority, HolderSet<EntityType<?>> entityTypes) {
 		super(biomes, priority);
 		this.entityTypes = entityTypes;
 	}

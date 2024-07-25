@@ -1,6 +1,7 @@
 package com.hexagram2021.biome_modifier.common.manager;
 
 import com.google.common.collect.ImmutableMap;
+import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import com.hexagram2021.biome_modifier.api.modifiers.biome.AbstractBiomeModifier;
 import com.hexagram2021.biome_modifier.api.modifiers.biome.IBiomeModifier;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
@@ -8,10 +9,14 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-public class BiomeModifierManager {
+public class BiomeModifierManager implements IModifierManager<IBiomeModifier, AbstractBiomeModifier, IModifiableBiome> {
 	public static final BiomeModifierManager INSTANCE = new BiomeModifierManager();
 
 	@Nullable
@@ -22,6 +27,7 @@ public class BiomeModifierManager {
 	public BiomeModifierManager() {
 	}
 
+	@Override
 	public void load(RegistryAccess registryAccess) {
 		if(this.frozenQueue != null) {
 			throw new IllegalStateException("Registry is already frozen!");
@@ -31,6 +37,7 @@ public class BiomeModifierManager {
 		this.biomeModifiersByName = builder.build();
 	}
 
+	@Override
 	public void freeze() {
 		if(this.frozenQueue != null) {
 			BMLogger.warn("freeze() called in the frozen registry!");
@@ -42,23 +49,33 @@ public class BiomeModifierManager {
 		}
 	}
 
-	public Optional<IBiomeModifier> getBiomeModifier(ResourceLocation id) {
+	@Override
+	public Optional<IBiomeModifier> getModifier(ResourceLocation id) {
 		return Optional.ofNullable(this.biomeModifiersByName.get(id));
 	}
 
-	public Collection<ResourceLocation> getAllBiomeModifierIds() {
+	@Override
+	public Collection<ResourceLocation> getAllModifierIds() {
 		return this.biomeModifiersByName.keySet();
 	}
 
-	public Collection<IBiomeModifier> getAllBiomeModifiers() {
+	@Override
+	public Collection<IBiomeModifier> getAllModifiers() {
 		return this.biomeModifiersByName.values();
 	}
 
-	public void applyAllBiomeModifiers(BiConsumer<ResourceLocation, AbstractBiomeModifier> consumer) {
+	@Override
+	public void applyAllModifiers(BiConsumer<ResourceLocation, AbstractBiomeModifier> consumer) {
 		if(this.frozenQueue == null) {
 			throw new IllegalStateException("Try to apply biome modifiers when registry is not frozen!");
 		}
 		this.frozenQueue.forEach(holder -> consumer.accept(holder.id(), holder.biomeModifier()));
+	}
+
+	@Override
+	public void tryCastOrElseThrow(Object object, Consumer<IModifiableBiome> consumer) {
+		IModifiableBiome modifiableBiome = (IModifiableBiome)object;
+		consumer.accept(modifiableBiome);
 	}
 
 	record BiomeModifierHolder(ResourceLocation id, AbstractBiomeModifier biomeModifier) implements Comparable<BiomeModifierHolder> {
