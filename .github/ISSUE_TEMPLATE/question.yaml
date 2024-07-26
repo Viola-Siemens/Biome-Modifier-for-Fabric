@@ -1,0 +1,31 @@
+name: Question
+description: What kind of information would you like to ask?
+title: "[Question]: "
+labels: [ "Question" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your supporting!
+  - type: checkboxes
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of the feature would you describe?
+      options:
+      - label: Biome Modifiers
+      - label: Dimension Modifiers
+      - label: Noise Generator Modifiers
+      - label: Other Modifiers
+      - label: Datapack, Documentation and API
+      - label: Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the Question
+      description: What's puzzling you?
+      placeholder: Feel free to describe what you thought :)
+    validations:
+      required: true

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wiki
+    url: https://github.com/Viola-Siemens/Biome-Modifier-for-Fabric/wiki
+    about: Here's a wiki to describe APIs of this mod.

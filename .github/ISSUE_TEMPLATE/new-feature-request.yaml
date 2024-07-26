@@ -1,0 +1,30 @@
+name: New Feature Request
+description: What features would you like to add in "Biome Modifier for Fabric"?
+title: "[Enhancement]: "
+labels: [ "Enhancement" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your supporting!
+  - type: checkboxes
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of the feature would you describe?
+      options:
+      - label: Biome Modifiers
+      - label: Dimension Modifiers
+      - label: Noise Generator Modifiers
+      - label: Other Modifiers
+      - label: Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the feature
+      description: What can Biome Modifier for Fabric mod do for you?
+      placeholder: Feel free to describe what you thought :)
+    validations:
+      required: true
