@@ -26,6 +26,8 @@ Let's make this work for Fabric!
 
 Datapack developers should put all biome modifiers (with format `*.json`) on `data/<modid>/biome_modifiers/` directory. With this mod, all biome modifiers will be applied on each biome.
 
+Same will also happen on dimensions (`data/<modid>/dimension_modifiers/`) and noise generators (`data/<modid>/noise_generator_modifiers/`).
+
 All [biome / dimension / noise] generator modifiers should follow this format:
 
 ```json

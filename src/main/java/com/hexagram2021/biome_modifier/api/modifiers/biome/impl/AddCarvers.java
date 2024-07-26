@@ -11,20 +11,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 
-public class AddCarversBiomeModifier extends AbstractBiomeModifier {
-	public static final Codec<AddCarversBiomeModifier> CODEC = RecordCodecBuilder.create(
+public class AddCarvers extends AbstractBiomeModifier {
+	public static final Codec<AddCarvers> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddCarversBiomeModifier::biomes),
-					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddCarversBiomeModifier::priority),
-					ConfiguredWorldCarver.LIST_CODEC.fieldOf("carvers").forGetter(AddCarversBiomeModifier::carvers),
-					GenerationStep.Carving.CODEC.fieldOf("step").forGetter(AddCarversBiomeModifier::step)
-			).apply(instance, AddCarversBiomeModifier::new)
+					Biome.LIST_CODEC.fieldOf("biomes").forGetter(AddCarvers::biomes),
+					Codec.INT.optionalFieldOf("priority", 1000).forGetter(AddCarvers::priority),
+					ConfiguredWorldCarver.LIST_CODEC.fieldOf("carvers").forGetter(AddCarvers::carvers),
+					GenerationStep.Carving.CODEC.fieldOf("step").forGetter(AddCarvers::step)
+			).apply(instance, AddCarvers::new)
 	);
 
 	final HolderSet<ConfiguredWorldCarver<?>> carvers;
 	final GenerationStep.Carving step;
 
-	protected AddCarversBiomeModifier(HolderSet<Biome> biomes, int priority, HolderSet<ConfiguredWorldCarver<?>> carvers, GenerationStep.Carving step) {
+	protected AddCarvers(HolderSet<Biome> biomes, int priority, HolderSet<ConfiguredWorldCarver<?>> carvers, GenerationStep.Carving step) {
 		super(biomes, priority);
 		this.carvers = carvers;
 		this.step = step;
