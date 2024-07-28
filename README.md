@@ -320,39 +320,253 @@ This type allows developers to replace other dimension modifiers in other datapa
 
 #### fixed_time
 
+This dimension modifier changes fixed time from target dimensions.
+
+`fixed_time` is an optional long value. If absent, the dimensions will do daylight cycle and remove its fixed time. If present, time is fixed in those dimensions.
+
+```json
+{
+  "type": "biome_modifier:fixed_time",
+  "dimensions": "<registry name(s) of dimensions>",
+  "fixed_time": fixed_time  //optional
+}
+```
+
 #### sky_light
+
+This dimension modifier changes if target dimensions has sky light.
+
+`has_skylight` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:sky_light",
+  "dimensions": "<registry name(s) of dimensions>",
+  "has_skylight": has_skylight
+}
+```
 
 #### ceiling
 
+This dimension modifier changes if target dimensions has ceiling.
+
+`has_ceiling` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:ceiling",
+  "dimensions": "<registry name(s) of dimensions>",
+  "has_ceiling": has_ceiling
+}
+```
+
 #### ultra_warm
+
+This dimension modifier changes if target dimensions is ultra warm.
+
+`ultrawarm` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:ultra_warm",
+  "dimensions": "<registry name(s) of dimensions>",
+  "ultrawarm": ultrawarm
+}
+```
 
 #### natural
 
+This dimension modifier changes if target dimensions is natural.
+
+`natural` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:natural",
+  "dimensions": "<registry name(s) of dimensions>",
+  "natural": natural
+}
+```
+
 #### coordinate_scale
+
+This dimension modifier changes coordinate scale from target dimensions.
+
+`coordinate_scale` should be a double float value between 1.0E-5 and 3.0E+7.
+
+```json
+{
+  "type": "biome_modifier:coordinate_scale",
+  "dimensions": "<registry name(s) of dimensions>",
+  "coordinate_scale": coordinate_scale
+}
+```
 
 #### bed_works
 
+This dimension modifier changes if bed can work in target dimensions.
+
+`bed_works` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:bed_works",
+  "dimensions": "<registry name(s) of dimensions>",
+  "bed_works": bed_works
+}
+```
+
 #### respawn_anchor_works
+
+This dimension modifier changes if respawn anchor can work in target dimensions.
+
+`respawn_anchor_works` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:respawn_anchor_works",
+  "dimensions": "<registry name(s) of dimensions>",
+  "respawn_anchor_works": respawn_anchor_works
+}
+```
 
 #### min_y
 
+This dimension modifier changes the min Y of target dimensions.
+
+`min_y` should be an integer value.
+
+```json
+{
+  "type": "biome_modifier:min_y",
+  "dimensions": "<registry name(s) of dimensions>",
+  "min_y": min_y
+}
+```
+
 #### height
+
+This dimension modifier changes the height of target dimensions.
+
+`height` should be an integer value.
+
+```json
+{
+  "type": "biome_modifier:height",
+  "dimensions": "<registry name(s) of dimensions>",
+  "height": height
+}
+```
 
 #### logical_height
 
+This dimension modifier changes the logical height of target dimensions.
+
+`logical_height` should be an integer value.
+
+```json
+{
+  "type": "biome_modifier:logical_height",
+  "dimensions": "<registry name(s) of dimensions>",
+  "logical_height": logical_height
+}
+```
+
 #### infiniburn
+
+This dimension modifier changes which tag of blocks will burn infinitely in target dimensions.
+
+```json
+{
+  "type": "biome_modifier:infiniburn",
+  "dimensions": "<registry name(s) of dimensions>",
+  "infiniburn": "<a tag of blocks>"
+}
+```
 
 #### effects
 
+This dimension modifier changes effects of target dimensions.
+
+`effects` should be a resource location.
+
+```json
+{
+  "type": "biome_modifier:effects",
+  "dimensions": "<registry name(s) of dimensions>",
+  "effects": "<an id of effects>"
+}
+```
+
 #### ambient_light
+
+This dimension modifier changes the level of ambient light of target dimensions.
+
+`ambient_light` should be a float value.
+
+```json
+{
+  "type": "biome_modifier:ambient_light",
+  "dimensions": "<registry name(s) of dimensions>",
+  "ambient_light": ambient_light
+}
+```
 
 #### piglin_safe
 
+This dimension modifier changes if piglins are safe and won't zombify in target dimensions.
+
+`piglin_safe` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:piglin_safe",
+  "dimensions": "<registry name(s) of dimensions>",
+  "piglin_safe": piglin_safe
+}
+```
+
 #### raids
+
+This dimension modifier changes if raids can occur in target dimensions.
+
+`has_raids` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:raids",
+  "dimensions": "<registry name(s) of dimensions>",
+  "has_raids": has_raids
+}
+```
 
 #### monster_spawn_light
 
+This dimension modifier changes the minimum light level to spawn monsters from target dimensions.
+
+`monster_spawn_light_level` should be an integer value between 0 (inclusive) and 16 (exclusive).
+
+```json
+{
+  "type": "biome_modifier:monster_spawn_light",
+  "dimensions": "<registry name(s) of dimensions>",
+  "monster_spawn_light_level": monster_spawn_light_level
+}
+```
+
 #### monster_spawn_block_light_limit
+
+This dimension modifier changes the maximum block light level to spawn monsters from target dimensions.
+
+`monster_spawn_block_light_limit` should be an integer value between 0 (inclusive) and 16 (exclusive).
+
+```json
+{
+  "type": "biome_modifier:monster_spawn_block_light_limit",
+  "dimensions": "<registry name(s) of dimensions>",
+  "monster_spawn_block_light_limit": monster_spawn_block_light_limit
+}
+```
 
 ### Different Types of Noise Generator Modifiers
 
