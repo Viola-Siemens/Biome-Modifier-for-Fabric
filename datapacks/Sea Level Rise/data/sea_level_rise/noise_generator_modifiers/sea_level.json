@@ -1,0 +1,9 @@
+{
+  "type": "biome_modifier:sea_level",
+  "noise_settings": [
+    "minecraft:overworld",
+    "minecraft:amplified",
+    "minecraft:large_biomes"
+  ],
+  "sea_level": 71
+}

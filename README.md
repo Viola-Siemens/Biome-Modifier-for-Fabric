@@ -494,7 +494,7 @@ This dimension modifier changes effects of target dimensions.
 {
   "type": "biome_modifier:effects",
   "dimensions": "<registry name(s) of dimensions>",
-  "effects": "<an id of effects>"
+  "effects": "<an ID of effects>"
 }
 ```
 
@@ -584,17 +584,73 @@ This type allows developers to replace other noise generator modifiers in other 
 
 #### default_block
 
+This noise generator modifier changes the default block of target noise generators.
+
+```json
+{
+  "type": "biome_modifier:default_block",
+  "noise_settings": "<registry name(s) of noise generators>",
+  "default_block": "<an ID of block>"
+}
+```
+
 #### default_fluid
+
+This noise generator modifier changes the default fluid of target noise generators.
+
+```json
+{
+  "type": "biome_modifier:default_fluid",
+  "noise_settings": "<registry name(s) of noise generators>",
+  "default_fluid": "<an ID of fluid block>"
+}
+```
 
 #### sea_level
 
+This noise generator modifier changes the Y axis of sea level of target noise generators.
+
+`sea_level` should be an integer value.
+
+```json
+{
+  "type": "biome_modifier:sea_level",
+  "noise_settings": "<registry name(s) of noise generators>",
+  "sea_level": sea_level
+}
+```
+
 #### aquifers
+
+This noise generator modifier changes if the aquifers are enabled in target noise generators.
+
+`aquifers_enabled` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:aquifers",
+  "noise_settings": "<registry name(s) of noise generators>",
+  "aquifers_enabled": aquifers_enabled
+}
+```
 
 #### ore_veins
 
+This noise generator modifier changes if the ore veins are enabled in target noise generators.
+
+`ore_veins_enabled` should be a boolean value.
+
+```json
+{
+  "type": "biome_modifier:ore_veins",
+  "noise_settings": "<registry name(s) of noise generators>",
+  "ore_veins_enabled": ore_veins_enabled
+}
+```
+
 ## Examples
 
-We provide 4 example datapacks for our mods:
+We provide 6 example datapacks for our mods:
 
 ### Extra Ores
 
@@ -617,3 +673,9 @@ This datapack makes zombie able to spawn in the nether.
 ### Always Working Bed
 
 This datapack removes "Intentional Game Design" from the nether and the end.
+
+### Sea Level Rise
+
+This datapack changes the sea level of the overworld from 63 to 71.
+
+![Sea level rises to 71](assets/sea_level.png)
