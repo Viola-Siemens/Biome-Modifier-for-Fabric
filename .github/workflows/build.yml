@@ -42,7 +42,7 @@ jobs:
       - name: Accept EULA
         run: mkdir -p ./run/testServer && echo "eula=true" > ./run/testServer/eula.txt
       - name: Copy Datapacks
-        run: mkdir -p ./run/testServer/world/datapacks && cp ./datapacks/*/*.zip ./run/testServer/datapacks/
+        run: mkdir -p ./run/testServer/world/datapacks && cp ./datapacks/*/*.zip ./run/testServer/world/datapacks/
       - name: Run Game Test
         timeout-minutes: 5
         run: ./gradlew runTestmodServer
