@@ -7,12 +7,11 @@ import org.apache.logging.log4j.Logger;
 import static com.hexagram2021.biome_modifier.BiomeModifierMod.MODID;
 
 @SuppressWarnings("unused")
-public class BMLogger {
-	public static boolean debugMode = true;
-	public static Logger logger = LogManager.getLogger(MODID);
+public final class BMLogger {
+	public static final Logger logger = LogManager.getLogger(MODID);
 
 	public static void log(Level logLevel, Object object) {
-		logger.log(logLevel, String.valueOf(object));
+		logger.log(logLevel, object);
 	}
 
 	public static void error(Object object) {
@@ -27,6 +26,10 @@ public class BMLogger {
 		log(Level.WARN, object);
 	}
 
+	public static void debug(Object object) {
+		log(Level.DEBUG, object);
+	}
+
 	public static void error(String message, Object... params) {
 		logger.log(Level.ERROR, message, params);
 	}
@@ -37,6 +40,10 @@ public class BMLogger {
 
 	public static void warn(String message, Object... params) {
 		logger.log(Level.WARN, message, params);
+	}
+
+	public static void debug(String message, Object... params) {
+		logger.log(Level.DEBUG, message, params);
 	}
 
 	public static void error(String message, Throwable e) {
@@ -51,15 +58,10 @@ public class BMLogger {
 		logger.log(Level.WARN, message, e);
 	}
 
-	public static void debug(Object object) {
-		if(debugMode) {
-			info("[DEBUG:] " + object);
-		}
+	public static void debug(String message, Throwable e) {
+		logger.log(Level.DEBUG, message, e);
 	}
 
-	public static void debug(String format, Object... params) {
-		if(debugMode) {
-			info("[DEBUG:] " + format, params);
-		}
+	private BMLogger() {
 	}
 }

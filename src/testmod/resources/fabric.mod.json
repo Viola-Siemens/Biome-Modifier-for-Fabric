@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "biome_modifier-testmod",
+  "name": "Biome Modifier Test Mod",
+  "version": "1.0.0",
+  "environment": "*",
+  "license": "MIT",
+  "entrypoints": {
+    "server": [
+      "com.hexagram2021.biome_modifier_test.BiomeModifierTest"
+    ]
+  },
+  "mixins": [
+    "biome_modifier-testmod.mixins.json"
+  ]
+}

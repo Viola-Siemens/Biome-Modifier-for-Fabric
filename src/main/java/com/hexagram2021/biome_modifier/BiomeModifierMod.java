@@ -28,6 +28,7 @@ public class BiomeModifierMod implements ModInitializer {
 		NoiseGeneratorModifierTypes.init();
 		BiomeModifierRegistries.init();
 		ServerLifecycleEvents.SERVER_STARTING.register(BiomeModifierMod::onServerAboutToStart);
+		ServerLifecycleEvents.SERVER_STOPPED.register(BiomeModifierMod::onServerStopped);
 	}
 
 	private static void onServerAboutToStart(MinecraftServer server) {
@@ -36,6 +37,12 @@ public class BiomeModifierMod implements ModInitializer {
 		applyDimensionModifiers(registryAccess);
 		applyNoiseGeneratorModifiers(registryAccess);
 		applyBiomeModifiers(registryAccess);
+	}
+
+	private static void onServerStopped(MinecraftServer server) {
+		BiomeModifierManager.INSTANCE.unfreeze();
+		DimensionModifierManager.INSTANCE.unfreeze();
+		NoiseGeneratorModifierManager.INSTANCE.unfreeze();
 	}
 
 	private static void applyNoiseGeneratorModifiers(RegistryAccess registryAccess) {

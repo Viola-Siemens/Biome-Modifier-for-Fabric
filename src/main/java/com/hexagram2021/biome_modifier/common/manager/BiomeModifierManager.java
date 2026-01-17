@@ -25,6 +25,7 @@ public class BiomeModifierManager implements IModifierManager<IBiomeModifier, Ab
 	private Map<ResourceLocation, IBiomeModifier> biomeModifiersByName = ImmutableMap.of();
 
 	public BiomeModifierManager() {
+		// Empty
 	}
 
 	@Override
@@ -47,6 +48,14 @@ public class BiomeModifierManager implements IModifierManager<IBiomeModifier, Ab
 					.map(entry -> new BiomeModifierHolder(entry.getKey(), (AbstractBiomeModifier)entry.getValue()))
 					.sorted().toList();
 		}
+	}
+
+	@Override
+	public void unfreeze() {
+		if(this.frozenQueue == null) {
+			BMLogger.warn("unfreeze() called in the unfrozen registry!");
+		}
+		this.frozenQueue = null;
 	}
 
 	@Override

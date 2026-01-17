@@ -25,6 +25,7 @@ public class DimensionModifierManager implements IModifierManager<IDimensionModi
 	private Map<ResourceLocation, IDimensionModifier> dimensionModifiersByName = ImmutableMap.of();
 
 	public DimensionModifierManager() {
+		// Empty
 	}
 
 	@Override
@@ -47,6 +48,14 @@ public class DimensionModifierManager implements IModifierManager<IDimensionModi
 					.map(entry -> new DimensionModifierHolder(entry.getKey(), (AbstractDimensionModifier)entry.getValue()))
 					.sorted().toList();
 		}
+	}
+
+	@Override
+	public void unfreeze() {
+		if(this.frozenQueue == null) {
+			BMLogger.warn("unfreeze() called in the unfrozen registry!");
+		}
+		this.frozenQueue = null;
 	}
 
 	@Override

@@ -25,6 +25,7 @@ public class NoiseGeneratorModifierManager implements IModifierManager<INoiseGen
 	private Map<ResourceLocation, INoiseGeneratorModifier> noiseGeneratorModifiersByName = ImmutableMap.of();
 
 	public NoiseGeneratorModifierManager() {
+		// Empty
 	}
 
 	@Override
@@ -47,6 +48,14 @@ public class NoiseGeneratorModifierManager implements IModifierManager<INoiseGen
 					.map(entry -> new NoiseGeneratorModifierHolder(entry.getKey(), (AbstractNoiseGeneratorModifier)entry.getValue()))
 					.sorted().toList();
 		}
+	}
+
+	@Override
+	public void unfreeze() {
+		if(this.frozenQueue == null) {
+			BMLogger.warn("unfreeze() called in the unfrozen registry!");
+		}
+		this.frozenQueue = null;
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 public interface IModifierManager<T extends IModifier<?, ?>, A extends T, M extends IModifiableApi<?>> {
 	void load(RegistryAccess registryAccess);
 	void freeze();
+	void unfreeze();
 
 	Optional<T> getModifier(ResourceLocation id);
 	Collection<ResourceLocation> getAllModifierIds();

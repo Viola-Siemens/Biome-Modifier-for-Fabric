@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hexagram2021.biome_modifier_test.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BiomeModifierModMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -3,12 +3,16 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+apply plugin: 'java'
+apply plugin: 'idea'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 version = project.mod_version
 group = project.maven_group
-archivesBaseName = project.archives_base_name
 base {
     archivesName = project.archives_base_name
 }
@@ -25,6 +29,13 @@ repositories {
     }
 }
 
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
@@ -32,6 +43,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+    testmodImplementation sourceSets.main.output
 }
 
 loom {
@@ -43,6 +56,12 @@ loom {
         }
         client {
             runDir "run/client"
+        }
+        testmodServer {
+            runDir "run/testServer"
+            server()
+            ideConfigGenerated project.rootProject == project
+            source sourceSets.testmod
         }
     }
 }
