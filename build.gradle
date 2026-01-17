@@ -48,7 +48,7 @@ dependencies {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/biome_modifier.accesswidener")
+    accessWidenerPath = file("src/main/resources/biome_modifier.accessWidener")
 
     runs {
         server {
