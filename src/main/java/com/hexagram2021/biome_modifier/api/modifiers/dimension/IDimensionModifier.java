@@ -7,7 +7,6 @@ import com.hexagram2021.biome_modifier.api.IModifiableDimension;
 import com.hexagram2021.biome_modifier.api.modifiers.IModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -35,14 +34,20 @@ public interface IDimensionModifier extends IModifier<DimensionType, IModifiable
 
 	Codec<IDimensionModifier> REGISTRY_CODEC = IDimensionModifierType.REGISTRY_CODEC.dispatch(IDimensionModifier::type, IDimensionModifierType::codec);
 
-	@Deprecated
+	/**
+	 * @deprecated Use {@link #REGISTRY_CODEC} instead.
+	 * @param dynamicOps	dynamic ops
+	 * @param object		Json object
+	 * @return A dimension modifier instance.
+	 */
+	@Deprecated(forRemoval = true, since = "26")
 	static IDimensionModifier fromJson(DynamicOps<JsonElement> dynamicOps, JsonObject object) {
 		String type = GsonHelper.convertToString(object.getAsJsonPrimitive("type"), "type");
 		ResourceLocation typeId = ResourceLocation.tryParse(type);
 		if(typeId == null || !IDimensionModifierType.DIMENSION_MODIFIER_TYPES.containsKey(typeId)) {
 			throw new IllegalArgumentException("Unexpected type: %s".formatted(typeId));
 		}
-		Codec<? extends IDimensionModifier> codec = IDimensionModifierType.DIMENSION_MODIFIER_TYPES.get(typeId).codec();
-		return Util.getOrThrow(codec.parse(dynamicOps, object), JsonParseException::new);
+		Codec<? extends IDimensionModifier> codec = IDimensionModifierType.DIMENSION_MODIFIER_TYPES.get(typeId).codec().codec();
+		return codec.parse(dynamicOps, object).getOrThrow(JsonParseException::new);
 	}
 }

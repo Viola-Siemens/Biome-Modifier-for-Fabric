@@ -5,6 +5,7 @@ import com.hexagram2021.biome_modifier.api.modifiers.dimension.AbstractDimension
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.DimensionModifierTypes;
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.IDimensionModifierType;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.util.ExtraCodecs;
@@ -14,7 +15,7 @@ import java.util.OptionalLong;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class FixedTime extends AbstractDimensionModifier {
-	public static final Codec<FixedTime> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<FixedTime> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					DIMENSION_LIST_CODEC.fieldOf("dimension_types").forGetter(FixedTime::dimensionTypes),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(FixedTime::priority),

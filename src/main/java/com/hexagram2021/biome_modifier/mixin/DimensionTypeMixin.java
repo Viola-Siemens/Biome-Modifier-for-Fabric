@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.OptionalLong;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+@SuppressWarnings({"java:S100", "java:S116", "OptionalUsedAsFieldOrParameterType"})
 @Mixin(value = DimensionType.class, priority = 53639)
 public class DimensionTypeMixin implements IModifiableDimension {
 	@Unique
@@ -57,6 +57,7 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	@Unique
 	DimensionType.MonsterSettings biome_modifier$monsterSettings;
 
+	@SuppressWarnings("java:S107")
 	@Inject(method = "<init>", at = @At(value = "TAIL"))
 	public void biome_modifier$constructor(OptionalLong fixedTime, boolean hasSkyLight, boolean hasCeiling, boolean ultraWarm, boolean natural,
 										   double coordinateScale, boolean bedWorks, boolean respawnAnchorWorks, int minY, int height, int logicalHeight,

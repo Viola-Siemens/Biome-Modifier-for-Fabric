@@ -5,12 +5,13 @@ import com.hexagram2021.biome_modifier.api.modifiers.biome.AbstractBiomeModifier
 import com.hexagram2021.biome_modifier.api.modifiers.biome.BiomeModifierTypes;
 import com.hexagram2021.biome_modifier.api.modifiers.biome.IBiomeModifierType;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
 
 public class Precipitation extends AbstractBiomeModifier {
-	public static final Codec<Precipitation> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<Precipitation> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					Biome.LIST_CODEC.fieldOf("biomes").forGetter(Precipitation::biomes),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(Precipitation::priority),

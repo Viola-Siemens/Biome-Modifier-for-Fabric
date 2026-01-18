@@ -7,7 +7,6 @@ import com.hexagram2021.biome_modifier.api.IModifiableBiome;
 import com.hexagram2021.biome_modifier.api.modifiers.IModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -35,14 +34,20 @@ public interface IBiomeModifier extends IModifier<Biome, IModifiableBiome.BiomeM
 
 	Codec<IBiomeModifier> REGISTRY_CODEC = IBiomeModifierType.REGISTRY_CODEC.dispatch(IBiomeModifier::type, IBiomeModifierType::codec);
 
-	@Deprecated
+	/**
+	 * @deprecated Use {@link #REGISTRY_CODEC} instead.
+	 * @param dynamicOps	dynamic ops
+	 * @param object		Json object
+	 * @return A biome modifier instance.
+	 */
+	@Deprecated(forRemoval = true, since = "26")
 	static IBiomeModifier fromJson(DynamicOps<JsonElement> dynamicOps, JsonObject object) {
 		String type = GsonHelper.convertToString(object.getAsJsonPrimitive("type"), "type");
 		ResourceLocation typeId = ResourceLocation.tryParse(type);
 		if(typeId == null || !IBiomeModifierType.BIOME_MODIFIER_TYPES.containsKey(typeId)) {
 			throw new IllegalArgumentException("Unexpected type: %s".formatted(typeId));
 		}
-		Codec<? extends IBiomeModifier> codec = IBiomeModifierType.BIOME_MODIFIER_TYPES.get(typeId).codec();
-		return Util.getOrThrow(codec.parse(dynamicOps, object), JsonParseException::new);
+		Codec<? extends IBiomeModifier> codec = IBiomeModifierType.BIOME_MODIFIER_TYPES.get(typeId).codec().codec();
+		return codec.parse(dynamicOps, object).getOrThrow(JsonParseException::new);
 	}
 }

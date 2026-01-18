@@ -7,7 +7,6 @@ import com.hexagram2021.biome_modifier.api.IModifiableNoiseGenerator;
 import com.hexagram2021.biome_modifier.api.modifiers.IModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -17,12 +16,12 @@ public interface INoiseGeneratorModifier extends IModifier<NoiseGeneratorSetting
 	/**
 	 * Can this modifier modify a certain noise generator? (Matching "noise_generators" field.)
 	 *
-	 * @param noise_generator the registered noise generator to be modified.
+	 * @param noiseGenerator the registered noise generator to be modified.
 	 *
 	 * @return true if this modifier can modify the input noise generator.
 	 */
 	@Override
-	boolean canModify(Holder<NoiseGeneratorSettings> noise_generator);
+	boolean canModify(Holder<NoiseGeneratorSettings> noiseGenerator);
 	/**
 	 * Apply the modification to a noise generator.
 	 *
@@ -35,14 +34,20 @@ public interface INoiseGeneratorModifier extends IModifier<NoiseGeneratorSetting
 
 	Codec<INoiseGeneratorModifier> REGISTRY_CODEC = INoiseGeneratorModifierType.REGISTRY_CODEC.dispatch(INoiseGeneratorModifier::type, INoiseGeneratorModifierType::codec);
 
-	@Deprecated
+	/**
+	 * @deprecated Use {@link #REGISTRY_CODEC} instead.
+	 * @param dynamicOps	dynamic ops
+	 * @param object		Json object
+	 * @return A noise generator modifier instance.
+	 */
+	@Deprecated(forRemoval = true, since = "26")
 	static INoiseGeneratorModifier fromJson(DynamicOps<JsonElement> dynamicOps, JsonObject object) {
 		String type = GsonHelper.convertToString(object.getAsJsonPrimitive("type"), "type");
 		ResourceLocation typeId = ResourceLocation.tryParse(type);
 		if(typeId == null || !INoiseGeneratorModifierType.NOISE_GENERATOR_MODIFIER_TYPES.containsKey(typeId)) {
 			throw new IllegalArgumentException("Unexpected type: %s".formatted(typeId));
 		}
-		Codec<? extends INoiseGeneratorModifier> codec = INoiseGeneratorModifierType.NOISE_GENERATOR_MODIFIER_TYPES.get(typeId).codec();
-		return Util.getOrThrow(codec.parse(dynamicOps, object), JsonParseException::new);
+		Codec<? extends INoiseGeneratorModifier> codec = INoiseGeneratorModifierType.NOISE_GENERATOR_MODIFIER_TYPES.get(typeId).codec().codec();
+		return codec.parse(dynamicOps, object).getOrThrow(JsonParseException::new);
 	}
 }

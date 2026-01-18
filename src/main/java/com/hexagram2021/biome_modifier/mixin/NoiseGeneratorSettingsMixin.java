@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
+@SuppressWarnings({"java:S100", "java:S116"})
 @Mixin(value = NoiseGeneratorSettings.class, priority = 53639)
 public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	@Unique
@@ -36,6 +37,7 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	@Unique
 	boolean biome_modifier$oreVeinsEnabled;
 
+	@SuppressWarnings("java:S107")
 	@Inject(method = "<init>", at = @At(value = "TAIL"))
 	public void biome_modifier$constructor(NoiseSettings noiseSettings, BlockState defaultBlock, BlockState defaultFluid, NoiseRouter noiseRouter,
 										   SurfaceRules.RuleSource surfaceRule, List<Climate.ParameterPoint> spawnTarget, int seaLevel,

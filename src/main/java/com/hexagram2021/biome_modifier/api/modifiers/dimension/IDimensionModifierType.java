@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface IDimensionModifierType {
 	 *
 	 * @return Codec of this dimension modifier.
 	 */
-	Codec<? extends IDimensionModifier> codec();
+	MapCodec<? extends IDimensionModifier> codec();
 
 	Map<ResourceLocation, IDimensionModifierType> DIMENSION_MODIFIER_TYPES = Maps.newHashMap();
 	Map<IDimensionModifierType, ResourceLocation> DIMENSION_MODIFIER_IDS = Maps.newIdentityHashMap();

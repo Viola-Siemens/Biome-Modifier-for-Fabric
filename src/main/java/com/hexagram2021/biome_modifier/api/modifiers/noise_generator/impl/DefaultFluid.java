@@ -5,13 +5,14 @@ import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.AbstractNoi
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.INoiseGeneratorModifierType;
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.NoiseGeneratorModifierTypes;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class DefaultFluid extends AbstractNoiseGeneratorModifier {
-	public static final Codec<DefaultFluid> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<DefaultFluid> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					NOISE_GENERATOR_LIST_CODEC.fieldOf("noise_settings").forGetter(DefaultFluid::noiseGenerators),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(DefaultFluid::priority),

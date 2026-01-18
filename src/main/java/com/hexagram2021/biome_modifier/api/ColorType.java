@@ -1,10 +1,11 @@
 package com.hexagram2021.biome_modifier.api;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 public record ColorType(byte r, byte g, byte b) {
-	public static final Codec<ColorType> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<ColorType> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					Codec.BYTE.fieldOf("r").forGetter(ColorType::r),
 					Codec.BYTE.fieldOf("g").forGetter(ColorType::g),

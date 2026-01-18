@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings({"java:S100", "java:S116"})
 @Mixin(value = Biome.class, priority = 53639)
 public class BiomeMixin implements IModifiableBiome {
 	@Unique

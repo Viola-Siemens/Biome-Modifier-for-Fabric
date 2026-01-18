@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface IBiomeModifierType {
 	 *
 	 * @return Codec of this biome modifier.
 	 */
-	Codec<? extends IBiomeModifier> codec();
+	MapCodec<? extends IBiomeModifier> codec();
 
 	Map<ResourceLocation, IBiomeModifierType> BIOME_MODIFIER_TYPES = Maps.newHashMap();
 	Map<IBiomeModifierType, ResourceLocation> BIOME_MODIFIER_IDS = Maps.newIdentityHashMap();

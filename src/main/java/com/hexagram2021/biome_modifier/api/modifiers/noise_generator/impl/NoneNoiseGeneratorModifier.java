@@ -4,13 +4,13 @@ import com.hexagram2021.biome_modifier.api.IModifiableNoiseGenerator;
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.INoiseGeneratorModifier;
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.INoiseGeneratorModifierType;
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.NoiseGeneratorModifierTypes;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class NoneNoiseGeneratorModifier implements INoiseGeneratorModifier {
-	public static final Codec<NoneNoiseGeneratorModifier> CODEC = RecordCodecBuilder.create(instance -> instance.point(new NoneNoiseGeneratorModifier()));
+	public static final MapCodec<NoneNoiseGeneratorModifier> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.point(new NoneNoiseGeneratorModifier()));
 
 	protected NoneNoiseGeneratorModifier() {
 	}
@@ -21,6 +21,7 @@ public class NoneNoiseGeneratorModifier implements INoiseGeneratorModifier {
 	}
 	@Override
 	public void modify(IModifiableNoiseGenerator.NoiseGeneratorModificationParametersList list) {
+		// Do nothing
 	}
 
 	@Override

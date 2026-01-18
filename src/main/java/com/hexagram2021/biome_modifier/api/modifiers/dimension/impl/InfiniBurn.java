@@ -5,6 +5,7 @@ import com.hexagram2021.biome_modifier.api.modifiers.dimension.AbstractDimension
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.DimensionModifierTypes;
 import com.hexagram2021.biome_modifier.api.modifiers.dimension.IDimensionModifierType;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.dimension.DimensionType;
 
 public class InfiniBurn extends AbstractDimensionModifier {
-	public static final Codec<InfiniBurn> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<InfiniBurn> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					DIMENSION_LIST_CODEC.fieldOf("dimension_types").forGetter(InfiniBurn::dimensionTypes),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(InfiniBurn::priority),
