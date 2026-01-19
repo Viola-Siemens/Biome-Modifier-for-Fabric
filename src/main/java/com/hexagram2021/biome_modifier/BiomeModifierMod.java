@@ -8,6 +8,7 @@ import com.hexagram2021.biome_modifier.api.modifiers.dimension.DimensionModifier
 import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.NoiseGeneratorModifierTypes;
 import com.hexagram2021.biome_modifier.common.manager.*;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
+import com.hexagram2021.biome_modifier.common.utils.Invalidatable;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.Registry;
@@ -37,6 +38,8 @@ public class BiomeModifierMod implements ModInitializer {
 		applyDimensionModifiers(registryAccess);
 		applyNoiseGeneratorModifiers(registryAccess);
 		applyBiomeModifiers(registryAccess);
+
+		invalidateChunkGeneratorCache(registryAccess);
 	}
 
 	private static void onServerStopped(MinecraftServer server) {
@@ -55,6 +58,14 @@ public class BiomeModifierMod implements ModInitializer {
 
 	private static void applyBiomeModifiers(RegistryAccess registryAccess) {
 		genericallyApplyModifiersFromManager(BiomeModifierManager.INSTANCE, Registries.BIOME, registryAccess, "biome");
+	}
+
+	private static void invalidateChunkGeneratorCache(RegistryAccess registryAccess) {
+		registryAccess.registryOrThrow(Registries.LEVEL_STEM).forEach(levelStem -> {
+			if(levelStem.generator() instanceof Invalidatable invalidatable) {
+				invalidatable.biome_modifier$invalidate();
+			}
+		});
 	}
 
 	private static <R, L extends IErrorHandlerParametersList, T extends IModifier<R, L>, A extends T, M extends IModifiableApi<L>>

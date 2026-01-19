@@ -234,7 +234,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 		}
 
 		public List<HolderSet<PlacedFeature>> features() {
-			return ImmutableList.copyOf(this.features.stream().map(HolderSet::direct).collect(Collectors.toList()));
+			return ImmutableList.copyOf(this.features.stream().map(HolderSet::direct).toList());
 		}
 		public void addFeatures(GenerationStep.Decoration step, List<Holder<PlacedFeature>> features) {
 			int stepOrdinal = step.ordinal();

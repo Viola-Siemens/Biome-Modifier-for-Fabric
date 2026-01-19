@@ -1,6 +1,8 @@
 package com.hexagram2021.biome_modifier.mixin;
 
 import com.hexagram2021.biome_modifier.api.IModifiableDimension;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -11,7 +13,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.OptionalLong;
@@ -84,8 +85,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified fixed time.
 	 */
-	@Redirect(method = {"fixedTime", "hasFixedTime", "timeOfDay"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;fixedTime:Ljava/util/OptionalLong;", opcode = Opcodes.GETFIELD))
-	private OptionalLong biome_modifier$modifiedFixedTime(DimensionType instance) {
+	@WrapOperation(method = {"fixedTime", "hasFixedTime", "timeOfDay"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;fixedTime:Ljava/util/OptionalLong;", opcode = Opcodes.GETFIELD))
+	private OptionalLong biome_modifier$modifiedFixedTime(DimensionType instance, Operation<OptionalLong> original) {
 		return this.biome_modifier$fixedTime;
 	}
 
@@ -93,8 +94,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified has skylight.
 	 */
-	@Redirect(method = {"hasSkyLight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;hasSkyLight:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedHasSkyLight(DimensionType instance) {
+	@WrapOperation(method = {"hasSkyLight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;hasSkyLight:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedHasSkyLight(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$hasSkyLight;
 	}
 
@@ -102,8 +103,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified has ceiling.
 	 */
-	@Redirect(method = {"hasCeiling"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedHasCeiling(DimensionType instance) {
+	@WrapOperation(method = {"hasCeiling"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedHasCeiling(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$hasCeiling;
 	}
 
@@ -111,8 +112,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified ultra warm.
 	 */
-	@Redirect(method = {"ultraWarm"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;ultraWarm:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedUltraWarm(DimensionType instance) {
+	@WrapOperation(method = {"ultraWarm"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;ultraWarm:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedUltraWarm(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$ultraWarm;
 	}
 
@@ -120,8 +121,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified natural.
 	 */
-	@Redirect(method = {"natural"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;natural:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedNatural(DimensionType instance) {
+	@WrapOperation(method = {"natural"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;natural:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedNatural(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$natural;
 	}
 
@@ -129,8 +130,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified coordinate scale.
 	 */
-	@Redirect(method = {"coordinateScale"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;coordinateScale:D", opcode = Opcodes.GETFIELD))
-	private double biome_modifier$modifiedCoordinateScale(DimensionType instance) {
+	@WrapOperation(method = {"coordinateScale"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;coordinateScale:D", opcode = Opcodes.GETFIELD))
+	private double biome_modifier$modifiedCoordinateScale(DimensionType instance, Operation<Double> original) {
 		return this.biome_modifier$coordinateScale;
 	}
 
@@ -138,8 +139,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified bed works.
 	 */
-	@Redirect(method = {"bedWorks"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;bedWorks:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedBedWorks(DimensionType instance) {
+	@WrapOperation(method = {"bedWorks"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;bedWorks:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedBedWorks(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$bedWorks;
 	}
 
@@ -147,8 +148,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified respawn anchor works.
 	 */
-	@Redirect(method = {"respawnAnchorWorks"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;respawnAnchorWorks:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedRespawnAnchorWorks(DimensionType instance) {
+	@WrapOperation(method = {"respawnAnchorWorks"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;respawnAnchorWorks:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedRespawnAnchorWorks(DimensionType instance, Operation<Boolean> original) {
 		return this.biome_modifier$respawnAnchorWorks;
 	}
 
@@ -156,8 +157,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified min Y.
 	 */
-	@Redirect(method = {"minY"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;minY:I", opcode = Opcodes.GETFIELD))
-	private int biome_modifier$modifiedMinY(DimensionType instance) {
+	@WrapOperation(method = {"minY"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;minY:I", opcode = Opcodes.GETFIELD))
+	private int biome_modifier$modifiedMinY(DimensionType instance, Operation<Integer> original) {
 		return this.biome_modifier$minY;
 	}
 
@@ -165,8 +166,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified height.
 	 */
-	@Redirect(method = {"height"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;height:I", opcode = Opcodes.GETFIELD))
-	private int biome_modifier$modifiedHeight(DimensionType instance) {
+	@WrapOperation(method = {"height"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;height:I", opcode = Opcodes.GETFIELD))
+	private int biome_modifier$modifiedHeight(DimensionType instance, Operation<Integer> original) {
 		return this.biome_modifier$height;
 	}
 
@@ -174,8 +175,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified logical height.
 	 */
-	@Redirect(method = {"logicalHeight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;logicalHeight:I", opcode = Opcodes.GETFIELD))
-	private int biome_modifier$modifiedLogicalHeight(DimensionType instance) {
+	@WrapOperation(method = {"logicalHeight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;logicalHeight:I", opcode = Opcodes.GETFIELD))
+	private int biome_modifier$modifiedLogicalHeight(DimensionType instance, Operation<Integer> original) {
 		return this.biome_modifier$logicalHeight;
 	}
 
@@ -183,8 +184,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified infiniburn.
 	 */
-	@Redirect(method = {"infiniburn"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;infiniburn:Lnet/minecraft/tags/TagKey;", opcode = Opcodes.GETFIELD))
-	private TagKey<Block> biome_modifier$modifiedInfiniburn(DimensionType instance) {
+	@WrapOperation(method = {"infiniburn"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;infiniburn:Lnet/minecraft/tags/TagKey;", opcode = Opcodes.GETFIELD))
+	private TagKey<Block> biome_modifier$modifiedInfiniburn(DimensionType instance, Operation<TagKey<Block>> original) {
 		return this.biome_modifier$infiniburn;
 	}
 
@@ -192,8 +193,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified effects location.
 	 */
-	@Redirect(method = {"effectsLocation"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;effectsLocation:Lnet/minecraft/resources/ResourceLocation;", opcode = Opcodes.GETFIELD))
-	private ResourceLocation biome_modifier$modifiedEffectsLocation(DimensionType instance) {
+	@WrapOperation(method = {"effectsLocation"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;effectsLocation:Lnet/minecraft/resources/ResourceLocation;", opcode = Opcodes.GETFIELD))
+	private ResourceLocation biome_modifier$modifiedEffectsLocation(DimensionType instance, Operation<ResourceLocation> original) {
 		return this.biome_modifier$effectsLocation;
 	}
 
@@ -201,8 +202,8 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified ambient light.
 	 */
-	@Redirect(method = {"ambientLight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;ambientLight:F", opcode = Opcodes.GETFIELD))
-	private float biome_modifier$modifiedAmbientLight(DimensionType instance) {
+	@WrapOperation(method = {"ambientLight"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;ambientLight:F", opcode = Opcodes.GETFIELD))
+	private float biome_modifier$modifiedAmbientLight(DimensionType instance, Operation<Float> original) {
 		return this.biome_modifier$ambientLight;
 	}
 
@@ -210,14 +211,14 @@ public class DimensionTypeMixin implements IModifiableDimension {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified monster settings.
 	 */
-	@Redirect(method = {
+	@WrapOperation(method = {
 			"monsterSettings",
 			"piglinSafe",
 			"hasRaids",
 			"monsterSpawnLightTest",
 			"monsterSpawnBlockLightLimit",
 	}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/DimensionType;monsterSettings:Lnet/minecraft/world/level/dimension/DimensionType$MonsterSettings;", opcode = Opcodes.GETFIELD))
-	private DimensionType.MonsterSettings biome_modifier$modifiedMonsterSettings(DimensionType instance) {
+	private DimensionType.MonsterSettings biome_modifier$modifiedMonsterSettings(DimensionType instance, Operation<DimensionType.MonsterSettings> original) {
 		return this.biome_modifier$monsterSettings;
 	}
 

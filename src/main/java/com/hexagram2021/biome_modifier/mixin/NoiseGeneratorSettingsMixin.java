@@ -1,6 +1,8 @@
 package com.hexagram2021.biome_modifier.mixin;
 
 import com.hexagram2021.biome_modifier.api.IModifiableNoiseGenerator;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,7 +15,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -54,8 +55,8 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified default block.
 	 */
-	@Redirect(method = {"defaultBlock"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;defaultBlock:Lnet/minecraft/world/level/block/state/BlockState;", opcode = Opcodes.GETFIELD))
-	private BlockState biome_modifier$modifiedDefaultBlock(NoiseGeneratorSettings instance) {
+	@WrapOperation(method = {"defaultBlock"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;defaultBlock:Lnet/minecraft/world/level/block/state/BlockState;", opcode = Opcodes.GETFIELD))
+	private BlockState biome_modifier$modifiedDefaultBlock(NoiseGeneratorSettings instance, Operation<BlockState> original) {
 		return this.biome_modifier$defaultBlock;
 	}
 
@@ -63,8 +64,8 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified default fluid.
 	 */
-	@Redirect(method = {"defaultFluid"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;defaultFluid:Lnet/minecraft/world/level/block/state/BlockState;", opcode = Opcodes.GETFIELD))
-	private BlockState biome_modifier$modifiedDefaultFluid(NoiseGeneratorSettings instance) {
+	@WrapOperation(method = {"defaultFluid"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;defaultFluid:Lnet/minecraft/world/level/block/state/BlockState;", opcode = Opcodes.GETFIELD))
+	private BlockState biome_modifier$modifiedDefaultFluid(NoiseGeneratorSettings instance, Operation<BlockState> original) {
 		return this.biome_modifier$defaultFluid;
 	}
 
@@ -72,8 +73,8 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified sea level.
 	 */
-	@Redirect(method = {"seaLevel"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;seaLevel:I", opcode = Opcodes.GETFIELD))
-	private int biome_modifier$modifiedSeaLevel(NoiseGeneratorSettings instance) {
+	@WrapOperation(method = {"seaLevel"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;seaLevel:I", opcode = Opcodes.GETFIELD))
+	private int biome_modifier$modifiedSeaLevel(NoiseGeneratorSettings instance, Operation<Integer> original) {
 		return this.biome_modifier$seaLevel;
 	}
 
@@ -81,8 +82,8 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified sea level.
 	 */
-	@Redirect(method = {"aquifersEnabled", "isAquifersEnabled"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;aquifersEnabled:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedAquifersEnabled(NoiseGeneratorSettings instance) {
+	@WrapOperation(method = {"aquifersEnabled", "isAquifersEnabled"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;aquifersEnabled:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedAquifersEnabled(NoiseGeneratorSettings instance, Operation<Boolean> original) {
 		return this.biome_modifier$aquifersEnabled;
 	}
 
@@ -90,8 +91,8 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified sea level.
 	 */
-	@Redirect(method = {"oreVeinsEnabled"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;oreVeinsEnabled:Z", opcode = Opcodes.GETFIELD))
-	private boolean biome_modifier$modifiedOreVeinsEnabled(NoiseGeneratorSettings instance) {
+	@WrapOperation(method = {"oreVeinsEnabled"}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;oreVeinsEnabled:Z", opcode = Opcodes.GETFIELD))
+	private boolean biome_modifier$modifiedOreVeinsEnabled(NoiseGeneratorSettings instance, Operation<Boolean> original) {
 		return this.biome_modifier$oreVeinsEnabled;
 	}
 

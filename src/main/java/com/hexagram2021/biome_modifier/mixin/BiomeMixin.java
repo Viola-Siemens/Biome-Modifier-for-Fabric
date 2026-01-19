@@ -1,6 +1,8 @@
 package com.hexagram2021.biome_modifier.mixin;
 
 import com.hexagram2021.biome_modifier.api.IModifiableBiome;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;
@@ -12,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @SuppressWarnings({"java:S100", "java:S116"})
@@ -46,14 +47,14 @@ public class BiomeMixin implements IModifiableBiome {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified climate settings.
 	 */
-	@Redirect(method = {
+	@WrapOperation(method = {
 			"hasPrecipitation",
 			"getHeightAdjustedTemperature",
 			"getGrassColorFromTexture",
 			"getFoliageColorFromTexture",
 			"getBaseTemperature"
 	}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;climateSettings:Lnet/minecraft/world/level/biome/Biome$ClimateSettings;", opcode = Opcodes.GETFIELD))
-	private Biome.ClimateSettings biome_modifier$modifiedClimateSettings(Biome instance) {
+	private Biome.ClimateSettings biome_modifier$modifiedClimateSettings(Biome instance, Operation<Biome.ClimateSettings> original) {
 		return this.biome_modifier$climateSettings;
 	}
 
@@ -61,7 +62,7 @@ public class BiomeMixin implements IModifiableBiome {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified special effects.
 	 */
-	@Redirect(method = {
+	@WrapOperation(method = {
 			"getSkyColor",
 			"getFogColor",
 			"getGrassColor",
@@ -75,7 +76,7 @@ public class BiomeMixin implements IModifiableBiome {
 			"getAmbientAdditions",
 			"getBackgroundMusic"
 	}, at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;specialEffects:Lnet/minecraft/world/level/biome/BiomeSpecialEffects;", opcode = Opcodes.GETFIELD))
-	private BiomeSpecialEffects biome_modifier$modifiedSpecialEffects(Biome instance) {
+	private BiomeSpecialEffects biome_modifier$modifiedSpecialEffects(Biome instance, Operation<BiomeSpecialEffects> original) {
 		return this.biome_modifier$specialEffects;
 	}
 
@@ -83,8 +84,8 @@ public class BiomeMixin implements IModifiableBiome {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified mob spawn settings.
 	 */
-	@Redirect(method = "getMobSettings", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;mobSettings:Lnet/minecraft/world/level/biome/MobSpawnSettings;", opcode = Opcodes.GETFIELD))
-	private MobSpawnSettings biome_modifier$modifiedMobSettings(Biome instance) {
+	@WrapOperation(method = "getMobSettings", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;mobSettings:Lnet/minecraft/world/level/biome/MobSpawnSettings;", opcode = Opcodes.GETFIELD))
+	private MobSpawnSettings biome_modifier$modifiedMobSettings(Biome instance, Operation<MobSpawnSettings> original) {
 		return this.biome_modifier$mobSettings;
 	}
 
@@ -92,8 +93,8 @@ public class BiomeMixin implements IModifiableBiome {
 	 * @author Biome Modifier for Fabric.
 	 * @reason Redirect this method by using modified mob spawn settings.
 	 */
-	@Redirect(method = "getGenerationSettings", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;generationSettings:Lnet/minecraft/world/level/biome/BiomeGenerationSettings;", opcode = Opcodes.GETFIELD))
-	private BiomeGenerationSettings biome_modifier$modifiedGenerationSettings(Biome instance) {
+	@WrapOperation(method = "getGenerationSettings", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/biome/Biome;generationSettings:Lnet/minecraft/world/level/biome/BiomeGenerationSettings;", opcode = Opcodes.GETFIELD))
+	private BiomeGenerationSettings biome_modifier$modifiedGenerationSettings(Biome instance, Operation<BiomeGenerationSettings> original) {
 		return this.biome_modifier$generationSettings;
 	}
 
