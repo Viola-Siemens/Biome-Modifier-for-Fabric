@@ -7,7 +7,8 @@
     "BiomeMixin",
     "ChunkGeneratorMixin",
     "DimensionTypeMixin",
-    "NoiseGeneratorSettingsMixin"
+    "NoiseGeneratorSettingsMixin",
+    "fabric_api.BiomeModificationImplMixin"
   ],
   "client": [
   ],
