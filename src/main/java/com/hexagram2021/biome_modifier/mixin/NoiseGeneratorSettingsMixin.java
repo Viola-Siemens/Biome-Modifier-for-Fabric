@@ -114,4 +114,9 @@ public class NoiseGeneratorSettingsMixin implements IModifiableNoiseGenerator {
 		this.biome_modifier$aquifersEnabled = list.aquifersEnabled();
 		this.biome_modifier$oreVeinsEnabled = list.oreVeinsEnabled();
 	}
+
+	@Override
+	public boolean biome_modifier$isModified() {
+		return this.biome_modifier$isModified;
+	}
 }

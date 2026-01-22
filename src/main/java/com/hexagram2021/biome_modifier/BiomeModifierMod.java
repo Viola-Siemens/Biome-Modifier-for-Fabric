@@ -9,14 +9,19 @@ import com.hexagram2021.biome_modifier.api.modifiers.noise_generator.NoiseGenera
 import com.hexagram2021.biome_modifier.common.manager.*;
 import com.hexagram2021.biome_modifier.common.utils.BMLogger;
 import com.hexagram2021.biome_modifier.common.utils.Invalidatable;
+import com.hexagram2021.biome_modifier.network.ClientboundBiomeSpecialEffectsPayload;
+import com.hexagram2021.biome_modifier.network.ServerboundRequestBiomeSpecialEffectsPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BiomeModifierMod implements ModInitializer {
@@ -28,8 +33,22 @@ public class BiomeModifierMod implements ModInitializer {
 		DimensionModifierTypes.init();
 		NoiseGeneratorModifierTypes.init();
 		BiomeModifierRegistries.init();
+
 		ServerLifecycleEvents.SERVER_STARTING.register(BiomeModifierMod::onServerAboutToStart);
 		ServerLifecycleEvents.SERVER_STOPPED.register(BiomeModifierMod::onServerStopped);
+		PayloadTypeRegistry.playC2S().register(ServerboundRequestBiomeSpecialEffectsPayload.PAYLOAD_TYPE, ServerboundRequestBiomeSpecialEffectsPayload.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(ClientboundBiomeSpecialEffectsPayload.PAYLOAD_TYPE, ClientboundBiomeSpecialEffectsPayload.STREAM_CODEC);
+
+		ServerPlayNetworking.registerGlobalReceiver(ServerboundRequestBiomeSpecialEffectsPayload.PAYLOAD_TYPE, (payload, context) -> {
+			try {
+				ServerPlayNetworking.send(context.player(), new ClientboundBiomeSpecialEffectsPayload(
+						payload.biome(),
+						Objects.requireNonNull(context.player().registryAccess().registryOrThrow(Registries.BIOME).get(payload.biome())).getSpecialEffects()
+				));
+			} catch (Exception e) {
+				BMLogger.error("Error when sending biome special effects: ", e);
+			}
+		});
 	}
 
 	private static void onServerAboutToStart(MinecraftServer server) {

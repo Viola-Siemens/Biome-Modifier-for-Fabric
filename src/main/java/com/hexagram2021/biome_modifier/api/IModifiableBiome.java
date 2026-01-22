@@ -310,6 +310,21 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 			});
 		}
 
+		public void setSpecialEffects(BiomeSpecialEffects biomeSpecialEffects) {
+			this.fogColor = biomeSpecialEffects.getFogColor();
+			this.waterColor = biomeSpecialEffects.getWaterColor();
+			this.waterFogColor = biomeSpecialEffects.getWaterFogColor();
+			this.skyColor = biomeSpecialEffects.getSkyColor();
+			this.foliageColorOverride = biomeSpecialEffects.getFoliageColorOverride();
+			this.grassColorOverride = biomeSpecialEffects.getGrassColorOverride();
+			this.grassColorModifier = biomeSpecialEffects.getGrassColorModifier();
+			this.ambientParticleSettings = biomeSpecialEffects.getAmbientParticleSettings();
+			this.ambientLoopSoundEvent = biomeSpecialEffects.getAmbientLoopSoundEvent();
+			this.ambientMoodSettings = biomeSpecialEffects.getAmbientMoodSettings();
+			this.ambientAdditionsSettings = biomeSpecialEffects.getAmbientAdditionsSettings();
+			this.backgroundMusic = biomeSpecialEffects.getBackgroundMusic();
+		}
+
 		@Override
 		public boolean hasError() {
 			return this.error > 0;

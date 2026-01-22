@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "com.hexagram2021.biome_modifier.BiomeModifierMod"
+    ],
+    "client": [
+      "com.hexagram2021.biome_modifier.client.BiomeModifierModClient"
     ]
   },
   "accessWidener": "biome_modifier.accessWidener",

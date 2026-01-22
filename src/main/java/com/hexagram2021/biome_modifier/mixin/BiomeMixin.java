@@ -129,4 +129,9 @@ public class BiomeMixin implements IModifiableBiome {
 		this.biome_modifier$generationSettings = new BiomeGenerationSettings(list.carvers(), list.features());
 		this.biome_modifier$mobSettings = new MobSpawnSettings(list.creatureGenerationProbability(), list.spawners(), list.mobSpawnCosts());
 	}
+
+	@Override
+	public boolean biome_modifier$isModified() {
+		return this.biome_modifier$isModified;
+	}
 }
