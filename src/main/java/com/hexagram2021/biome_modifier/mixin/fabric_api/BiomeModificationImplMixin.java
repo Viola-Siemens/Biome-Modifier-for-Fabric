@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@SuppressWarnings({"UnstableApiUsage", "java:S100", "java:S1118"})
+@SuppressWarnings({"java:S100", "java:S1118"})
 @Mixin(value = BiomeModificationImpl.class, remap = false)
 public class BiomeModificationImplMixin {
 	/**

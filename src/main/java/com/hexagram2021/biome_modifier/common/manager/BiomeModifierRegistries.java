@@ -8,13 +8,18 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
-public class BiomeModifierRegistries {
+import static com.hexagram2021.biome_modifier.BiomeModifierMod.MODID;
+
+public final class BiomeModifierRegistries {
 	public static final ResourceKey<Registry<IBiomeModifier>> REGISTRY_BIOME_MODIFIER =
-			ResourceKey.createRegistryKey(new ResourceLocation("biome_modifiers"));
+			ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(MODID, "biome_modifiers"));
 	public static final ResourceKey<Registry<IDimensionModifier>> REGISTRY_DIMENSION_MODIFIER =
-			ResourceKey.createRegistryKey(new ResourceLocation("dimension_modifiers"));
+			ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(MODID, "dimension_modifiers"));
 	public static final ResourceKey<Registry<INoiseGeneratorModifier>> REGISTRY_NOISE_GENERATOR_MODIFIER =
-			ResourceKey.createRegistryKey(new ResourceLocation("noise_generator_modifiers"));
+			ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(MODID, "noise_generator_modifiers"));
+
+	private BiomeModifierRegistries() {
+	}
 
 	public static void init() {
 		DynamicRegistries.register(REGISTRY_BIOME_MODIFIER, IBiomeModifier.REGISTRY_CODEC);

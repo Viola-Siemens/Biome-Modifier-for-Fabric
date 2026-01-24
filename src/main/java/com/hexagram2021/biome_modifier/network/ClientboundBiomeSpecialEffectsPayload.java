@@ -11,7 +11,7 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import static com.hexagram2021.biome_modifier.BiomeModifierMod.MODID;
 
 public record ClientboundBiomeSpecialEffectsPayload(ResourceLocation biome, BiomeSpecialEffects effects) implements CustomPacketPayload {
-	public static final ResourceLocation BIOME_SPECIAL_EFFECTS = new ResourceLocation(MODID, "biome_special_effects");
+	public static final ResourceLocation BIOME_SPECIAL_EFFECTS = ResourceLocation.fromNamespaceAndPath(MODID, "biome_special_effects");
 
 	public static final StreamCodec<FriendlyByteBuf, ClientboundBiomeSpecialEffectsPayload> STREAM_CODEC = CustomPacketPayload.codec(
 			ClientboundBiomeSpecialEffectsPayload::write, ClientboundBiomeSpecialEffectsPayload::new

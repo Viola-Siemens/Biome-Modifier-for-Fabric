@@ -25,11 +25,10 @@ jobs:
             ${{ runner.os }}-gradle
       - uses: actions/checkout@v4
       - uses: BrycensRanch/read-properties-action@v1
-        id: version
+        id: read_properties
         with:
           file: gradle.properties
-          property: mod_version
-          default: 1.0.0
+          all: true
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -43,6 +42,33 @@ jobs:
         run: mkdir -p ./run/testServer && echo "eula=true" > ./run/testServer/eula.txt
       - name: Copy Datapacks
         run: mkdir -p ./run/testServer/world/datapacks && cp ./datapacks/*/*.zip ./run/testServer/world/datapacks/
+      - name: Change Minecraft version to maximum bound
+        uses: dschanoeh/change-property@v1
+        with:
+          file: gradle.properties
+          property: minecraft_version
+          value: 1.21.5
+      - name: Change Fabric API version to maximum bound
+        uses: dschanoeh/change-property@v1
+        with:
+          file: gradle.properties
+          property: fabric_version
+          value: 0.128.2+1.21.5
+      - name: Run Game Test
+        timeout-minutes: 5
+        run: ./gradlew runTestmodServer
+      - name: Change Minecraft version to default
+        uses: dschanoeh/change-property@v1
+        with:
+          file: gradle.properties
+          property: minecraft_version
+          value: ${{steps.read_properties.outputs.minecraft_version}}
+      - name: Change Fabric API version to default
+        uses: dschanoeh/change-property@v1
+        with:
+          file: gradle.properties
+          property: fabric_version
+          value: ${{steps.read_properties.outputs.fabric_version}}
       - name: Run Game Test
         timeout-minutes: 5
         run: ./gradlew runTestmodServer
@@ -51,12 +77,12 @@ jobs:
       - name: Upload binaries to release
         uses: actions/upload-artifact@v4
         with:
-          name: biome_modifier-${{steps.version.outputs.value}}-${{github.sha}}.jar
-          path: build/libs/biome_modifier-${{steps.version.outputs.value}}.jar
+          name: biome_modifier-${{steps.read_properties.outputs.mod_version}}-${{github.sha}}.jar
+          path: build/libs/biome_modifier-${{steps.read_properties.outputs.mod_version}}.jar
           repo-token:  ${{ secrets.ACTION_TOKEN }}
       - name: Upload sources to release
         uses: actions/upload-artifact@v4
         with:
-          name: biome_modifier-${{steps.version.outputs.value}}-${{github.sha}}-sources.jar
-          path: build/libs/biome_modifier-${{steps.version.outputs.value}}-sources.jar
+          name: biome_modifier-${{steps.read_properties.outputs.mod_version}}-${{github.sha}}-sources.jar
+          path: build/libs/biome_modifier-${{steps.read_properties.outputs.mod_version}}-sources.jar
           repo-token:  ${{ secrets.ACTION_TOKEN }}

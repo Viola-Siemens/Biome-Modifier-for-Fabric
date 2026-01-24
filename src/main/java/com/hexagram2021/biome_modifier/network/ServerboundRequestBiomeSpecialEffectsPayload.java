@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.hexagram2021.biome_modifier.BiomeModifierMod.MODID;
 
 public record ServerboundRequestBiomeSpecialEffectsPayload(ResourceLocation biome) implements CustomPacketPayload {
-	public static final ResourceLocation REQUEST_BIOME_SPECIAL_EFFECTS = new ResourceLocation(MODID, "request_biome_special_effects");
+	public static final ResourceLocation REQUEST_BIOME_SPECIAL_EFFECTS = ResourceLocation.fromNamespaceAndPath(MODID, "request_biome_special_effects");
 
 	public static final StreamCodec<FriendlyByteBuf, ServerboundRequestBiomeSpecialEffectsPayload> STREAM_CODEC = CustomPacketPayload.codec(
 			ServerboundRequestBiomeSpecialEffectsPayload::write, ServerboundRequestBiomeSpecialEffectsPayload::new

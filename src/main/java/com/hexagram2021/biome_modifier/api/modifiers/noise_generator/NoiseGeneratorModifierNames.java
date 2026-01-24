@@ -5,12 +5,12 @@ import net.minecraft.resources.ResourceLocation;
 import static com.hexagram2021.biome_modifier.BiomeModifierMod.MODID;
 
 public final class NoiseGeneratorModifierNames {
-	public static final ResourceLocation NONE = new ResourceLocation(MODID, "none");
-	public static final ResourceLocation DEFAULT_BLOCK = new ResourceLocation(MODID, "default_block");
-	public static final ResourceLocation DEFAULT_FLUID = new ResourceLocation(MODID, "default_fluid");
-	public static final ResourceLocation SEA_LEVEL = new ResourceLocation(MODID, "sea_level");
-	public static final ResourceLocation AQUIFERS = new ResourceLocation(MODID, "aquifers");
-	public static final ResourceLocation ORE_VEINS = new ResourceLocation(MODID, "ore_veins");
+	public static final ResourceLocation NONE = ResourceLocation.fromNamespaceAndPath(MODID, "none");
+	public static final ResourceLocation DEFAULT_BLOCK = ResourceLocation.fromNamespaceAndPath(MODID, "default_block");
+	public static final ResourceLocation DEFAULT_FLUID = ResourceLocation.fromNamespaceAndPath(MODID, "default_fluid");
+	public static final ResourceLocation SEA_LEVEL = ResourceLocation.fromNamespaceAndPath(MODID, "sea_level");
+	public static final ResourceLocation AQUIFERS = ResourceLocation.fromNamespaceAndPath(MODID, "aquifers");
+	public static final ResourceLocation ORE_VEINS = ResourceLocation.fromNamespaceAndPath(MODID, "ore_veins");
 
 	private NoiseGeneratorModifierNames() {
 	}
