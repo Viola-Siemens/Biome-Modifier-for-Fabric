@@ -47,13 +47,13 @@ jobs:
         with:
           file: gradle.properties
           property: minecraft_version
-          value: 1.21.5
+          value: ${{steps.read_properties.outputs.upperbound_minecraft_version}}
       - name: Change Fabric API version to maximum bound
         uses: dschanoeh/change-property@v1
         with:
           file: gradle.properties
           property: fabric_version
-          value: 0.128.2+1.21.5
+          value: ${{steps.read_properties.outputs.upperbound_fabric_version}}
       - name: Run Game Test
         timeout-minutes: 5
         run: ./gradlew runTestmodServer
