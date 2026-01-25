@@ -17,7 +17,7 @@ public record ClientboundBiomeSpecialEffectsPayload(ResourceLocation biome, Biom
 			ClientboundBiomeSpecialEffectsPayload::write, ClientboundBiomeSpecialEffectsPayload::new
 	);
 	public static final StreamCodec<ByteBuf, BiomeSpecialEffects> BIOME_SPECIAL_EFFECTS_STREAM_CODEC = ByteBufCodecs.fromCodec(BiomeSpecialEffects.CODEC);
-	public static final Type<ClientboundBiomeSpecialEffectsPayload> PAYLOAD_TYPE = CustomPacketPayload.createType(BIOME_SPECIAL_EFFECTS.toString());
+	public static final Type<ClientboundBiomeSpecialEffectsPayload> PAYLOAD_TYPE = new Type<>(BIOME_SPECIAL_EFFECTS);
 
 	public ClientboundBiomeSpecialEffectsPayload(FriendlyByteBuf buf) {
 		this(buf.readResourceLocation(), BIOME_SPECIAL_EFFECTS_STREAM_CODEC.decode(buf));

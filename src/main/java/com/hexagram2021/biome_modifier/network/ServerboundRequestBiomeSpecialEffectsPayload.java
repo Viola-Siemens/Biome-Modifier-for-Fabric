@@ -13,7 +13,7 @@ public record ServerboundRequestBiomeSpecialEffectsPayload(ResourceLocation biom
 	public static final StreamCodec<FriendlyByteBuf, ServerboundRequestBiomeSpecialEffectsPayload> STREAM_CODEC = CustomPacketPayload.codec(
 			ServerboundRequestBiomeSpecialEffectsPayload::write, ServerboundRequestBiomeSpecialEffectsPayload::new
 	);
-	public static final Type<ServerboundRequestBiomeSpecialEffectsPayload> PAYLOAD_TYPE = CustomPacketPayload.createType(REQUEST_BIOME_SPECIAL_EFFECTS.toString());
+	public static final Type<ServerboundRequestBiomeSpecialEffectsPayload> PAYLOAD_TYPE = new Type<>(REQUEST_BIOME_SPECIAL_EFFECTS);
 
 	public ServerboundRequestBiomeSpecialEffectsPayload(FriendlyByteBuf buf) {
 		this(buf.readResourceLocation());
