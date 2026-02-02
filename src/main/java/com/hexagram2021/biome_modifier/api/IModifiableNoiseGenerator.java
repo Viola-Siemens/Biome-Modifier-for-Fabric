@@ -29,7 +29,7 @@ public interface IModifiableNoiseGenerator extends IModifiableApi<IModifiableNoi
 
 		public NoiseGeneratorModificationParametersList(RegistryAccess registryAccess, NoiseGeneratorSettings noiseGenerator) {
 			this.registryAccess = registryAccess;
-			this.noiseGeneratorId = registryAccess.registryOrThrow(Registries.NOISE_SETTINGS).getKey(noiseGenerator);
+			this.noiseGeneratorId = registryAccess.lookupOrThrow(Registries.NOISE_SETTINGS).getKey(noiseGenerator);
 			this.defaultBlock = noiseGenerator.defaultBlock();
 			this.defaultFluid = noiseGenerator.defaultFluid();
 			this.seaLevel = noiseGenerator.seaLevel();

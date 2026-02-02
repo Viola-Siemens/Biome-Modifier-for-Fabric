@@ -34,7 +34,9 @@ public class NoiseGeneratorModifierManager implements IModifierManager<INoiseGen
 			throw new IllegalStateException("Registry is already frozen!");
 		}
 		ImmutableMap.Builder<ResourceLocation, INoiseGeneratorModifier> builder = ImmutableMap.builder();
-		registryAccess.registryOrThrow(BiomeModifierRegistries.REGISTRY_NOISE_GENERATOR_MODIFIER).holders().forEach(holder -> builder.put(holder.key().location(), holder.value()));
+		registryAccess.lookupOrThrow(BiomeModifierRegistries.REGISTRY_NOISE_GENERATOR_MODIFIER).asHolderIdMap().forEach(
+				holder -> builder.put(holder.unwrapKey().orElseThrow().location(), holder.value())
+		);
 		this.noiseGeneratorModifiersByName = builder.build();
 	}
 

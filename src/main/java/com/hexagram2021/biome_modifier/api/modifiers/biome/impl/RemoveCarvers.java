@@ -9,7 +9,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 
 public class RemoveCarvers extends AbstractBiomeModifier {
@@ -17,23 +16,20 @@ public class RemoveCarvers extends AbstractBiomeModifier {
 			instance -> instance.group(
 					Biome.LIST_CODEC.fieldOf("biomes").forGetter(RemoveCarvers::biomes),
 					Codec.INT.optionalFieldOf("priority", 1000).forGetter(RemoveCarvers::priority),
-					ConfiguredWorldCarver.LIST_CODEC.fieldOf("carvers").forGetter(RemoveCarvers::carvers),
-					GenerationStep.Carving.CODEC.fieldOf("step").forGetter(RemoveCarvers::step)
+					ConfiguredWorldCarver.LIST_CODEC.fieldOf("carvers").forGetter(RemoveCarvers::carvers)
 			).apply(instance, RemoveCarvers::new)
 	);
 
 	final HolderSet<ConfiguredWorldCarver<?>> carvers;
-	final GenerationStep.Carving step;
 
-	protected RemoveCarvers(HolderSet<Biome> biomes, int priority, HolderSet<ConfiguredWorldCarver<?>> carvers, GenerationStep.Carving step) {
+	protected RemoveCarvers(HolderSet<Biome> biomes, int priority, HolderSet<ConfiguredWorldCarver<?>> carvers) {
 		super(biomes, priority);
 		this.carvers = carvers;
-		this.step = step;
 	}
 
 	@Override
 	public void modifyParametersList(IModifiableBiome.BiomeModificationParametersList list) {
-		list.removeCarvers(this.step, this.carvers.stream().toList());
+		list.removeCarvers(this.carvers.stream().toList());
 	}
 
 	@Override
@@ -43,9 +39,5 @@ public class RemoveCarvers extends AbstractBiomeModifier {
 
 	public HolderSet<ConfiguredWorldCarver<?>> carvers() {
 		return this.carvers;
-	}
-
-	public GenerationStep.Carving step() {
-		return this.step;
 	}
 }

@@ -58,7 +58,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 		Optional<AmbientAdditionsSettings> ambientAdditionsSettings;
 		Optional<Music> backgroundMusic;
 		//generationSettings
-		final Map<GenerationStep.Carving, List<Holder<ConfiguredWorldCarver<?>>>> carvers;
+		final List<Holder<ConfiguredWorldCarver<?>>> carvers;
 		final List<List<Holder<PlacedFeature>>> features;
 		//mobSettings
 		float creatureGenerationProbability;
@@ -86,8 +86,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 			this.ambientMoodSettings = specialEffects.getAmbientMoodSettings();
 			this.ambientAdditionsSettings = specialEffects.getAmbientAdditionsSettings();
 			this.backgroundMusic = specialEffects.getBackgroundMusic();
-			this.carvers = Maps.newHashMap();
-			generationSettings.carvers.forEach((carving, holders) -> this.carvers.put(carving, Lists.newArrayList(holders)));
+			this.carvers = generationSettings.carvers.stream().collect(Collectors.toCollection(Lists::newArrayList));
 			this.features = generationSettings.features().stream().map(Lists::newArrayList).collect(Collectors.toList());
 			this.creatureGenerationProbability = mobSettings.getCreatureProbability();
 			this.spawners = Maps.newHashMap();
@@ -207,27 +206,25 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 			this.backgroundMusic = backgroundMusic;
 		}
 
-		public Map<GenerationStep.Carving, HolderSet<ConfiguredWorldCarver<?>>> carvers() {
-			ImmutableMap.Builder<GenerationStep.Carving, HolderSet<ConfiguredWorldCarver<?>>> builder = ImmutableMap.builder();
-			this.carvers.forEach((carving, holders) -> builder.put(carving, HolderSet.direct(holders)));
-			return builder.build();
+		public HolderSet<ConfiguredWorldCarver<?>> carvers() {
+			return HolderSet.direct(this.carvers);
 		}
-		public void addCarvers(GenerationStep.Carving step, List<Holder<ConfiguredWorldCarver<?>>> carvers) {
-			if(this.carvers.containsKey(step)) {
-				this.carvers.get(step).addAll(carvers);
-			} else {
-				this.carvers.put(step, Lists.newArrayList(carvers));
+		public void addCarver(Holder<ConfiguredWorldCarver<?>> carver) {
+			this.carvers.add(carver);
+		}
+		public void removeCarver(Holder<ConfiguredWorldCarver<?>> carver) {
+			if(!this.carvers.remove(carver)) {
+				Registry<ConfiguredWorldCarver<?>> registry = this.registryAccess.lookupOrThrow(Registries.CONFIGURED_CARVER);
+				this.warnMissing("Carver", registry.getKey(carver.value()), "carvers");
 			}
 		}
-		public void removeCarvers(GenerationStep.Carving step, List<Holder<ConfiguredWorldCarver<?>>> carvers) {
-			if(!this.carvers.containsKey(step)) {
-				this.warnMissing("Step", step, "carvers");
-				return;
-			}
-			List<Holder<ConfiguredWorldCarver<?>>> list = this.carvers.get(step);
+		public void addCarvers(List<Holder<ConfiguredWorldCarver<?>>> carvers) {
+			this.carvers.addAll(carvers);
+		}
+		public void removeCarvers(List<Holder<ConfiguredWorldCarver<?>>> carvers) {
 			for(Holder<ConfiguredWorldCarver<?>> holder: carvers) {
-				if(!list.remove(holder)) {
-					Registry<ConfiguredWorldCarver<?>> registry = this.registryAccess.registryOrThrow(Registries.CONFIGURED_CARVER);
+				if(!this.carvers.remove(holder)) {
+					Registry<ConfiguredWorldCarver<?>> registry = this.registryAccess.lookupOrThrow(Registries.CONFIGURED_CARVER);
 					this.warnMissing("Carver", registry.getKey(holder.value()), "carvers");
 				}
 			}
@@ -252,7 +249,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 			List<Holder<PlacedFeature>> list = this.features.get(stepOrdinal);
 			for(Holder<PlacedFeature> holder: features) {
 				if(!list.remove(holder)) {
-					Registry<PlacedFeature> registry = this.registryAccess.registryOrThrow(Registries.PLACED_FEATURE);
+					Registry<PlacedFeature> registry = this.registryAccess.lookupOrThrow(Registries.PLACED_FEATURE);
 					this.warnMissing("Feature", registry.getKey(holder.value()), "features");
 				}
 			}
@@ -274,7 +271,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 			list.forEach(spawnerData -> {
 				List<MobSpawnSettings.SpawnerData> pool = this.spawners.get(spawnerData.type.getCategory());
 				if(pool.stream().anyMatch(spawnerData1 -> Objects.equals(spawnerData.type, spawnerData1.type))) {
-					Registry<EntityType<?>> registry = this.registryAccess.registryOrThrow(Registries.ENTITY_TYPE);
+					Registry<EntityType<?>> registry = this.registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
 					this.warnExisting("Spawner", registry.getKey(spawnerData.type), "spawners");
 				} else {
 					pool.add(spawnerData);
@@ -284,7 +281,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 		public void removeSpawners(List<? extends EntityType<?>> list) {
 			list.forEach(type -> {
 				if(!this.spawners.get(type.getCategory()).removeIf(spawnerData -> Objects.equals(spawnerData.type, type))) {
-					Registry<EntityType<?>> registry = this.registryAccess.registryOrThrow(Registries.ENTITY_TYPE);
+					Registry<EntityType<?>> registry = this.registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
 					this.warnMissing("Spawner", registry.getKey(type), "spawners");
 				}
 			});
@@ -296,7 +293,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 		public void addSpawnerCosts(Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> costs) {
 			costs.forEach((entityType, mobSpawnCost) -> {
 				if(this.mobSpawnCosts.put(entityType, mobSpawnCost) != null) {
-					Registry<EntityType<?>> registry = this.registryAccess.registryOrThrow(Registries.ENTITY_TYPE);
+					Registry<EntityType<?>> registry = this.registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
 					this.warnExisting("Entity type", registry.getKey(entityType), "spawner costs");
 				}
 			});
@@ -304,7 +301,7 @@ public interface IModifiableBiome extends IModifiableApi<IModifiableBiome.BiomeM
 		public void removeSpawnerCosts(List<? extends EntityType<?>> types) {
 			types.forEach(type -> {
 				if(this.mobSpawnCosts.remove(type) == null) {
-					Registry<EntityType<?>> registry = this.registryAccess.registryOrThrow(Registries.ENTITY_TYPE);
+					Registry<EntityType<?>> registry = this.registryAccess.lookupOrThrow(Registries.ENTITY_TYPE);
 					this.warnMissing("Entity type", registry.getKey(type), "spawner costs");
 				}
 			});

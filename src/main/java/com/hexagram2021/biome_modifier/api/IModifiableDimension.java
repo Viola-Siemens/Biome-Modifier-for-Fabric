@@ -47,7 +47,7 @@ public interface IModifiableDimension extends IModifiableApi<IModifiableDimensio
 
 		public DimensionModificationParametersList(RegistryAccess registryAccess, DimensionType dimensionType) {
 			this.registryAccess = registryAccess;
-			this.dimensionId = registryAccess.registryOrThrow(Registries.DIMENSION_TYPE).getKey(dimensionType);
+			this.dimensionId = registryAccess.lookupOrThrow(Registries.DIMENSION_TYPE).getKey(dimensionType);
 			this.fixedTime = dimensionType.fixedTime();
 			this.hasSkyLight = dimensionType.hasSkyLight();
 			this.hasCeiling = dimensionType.hasCeiling();

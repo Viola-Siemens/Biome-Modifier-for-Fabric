@@ -34,7 +34,9 @@ public class DimensionModifierManager implements IModifierManager<IDimensionModi
 			throw new IllegalStateException("Registry is already frozen!");
 		}
 		ImmutableMap.Builder<ResourceLocation, IDimensionModifier> builder = ImmutableMap.builder();
-		registryAccess.registryOrThrow(BiomeModifierRegistries.REGISTRY_DIMENSION_MODIFIER).holders().forEach(holder -> builder.put(holder.key().location(), holder.value()));
+		registryAccess.lookupOrThrow(BiomeModifierRegistries.REGISTRY_DIMENSION_MODIFIER).asHolderIdMap().forEach(
+				holder -> builder.put(holder.unwrapKey().orElseThrow().location(), holder.value())
+		);
 		this.dimensionModifiersByName = builder.build();
 	}
 

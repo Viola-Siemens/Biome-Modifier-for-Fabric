@@ -43,7 +43,12 @@ public class BiomeModifierMod implements ModInitializer {
 			try {
 				ServerPlayNetworking.send(context.player(), new ClientboundBiomeSpecialEffectsPayload(
 						payload.biome(),
-						Objects.requireNonNull(context.player().registryAccess().registryOrThrow(Registries.BIOME).get(payload.biome())).getSpecialEffects()
+						Objects.requireNonNull(
+								context.player()
+										.registryAccess()
+										.lookupOrThrow(Registries.BIOME)
+										.getValueOrThrow(ResourceKey.create(Registries.BIOME, payload.biome()))
+						).getSpecialEffects()
 				));
 			} catch (Exception e) {
 				BMLogger.error("Error when sending biome special effects: ", e);
@@ -80,7 +85,7 @@ public class BiomeModifierMod implements ModInitializer {
 	}
 
 	private static void invalidateChunkGeneratorCache(RegistryAccess registryAccess) {
-		registryAccess.registryOrThrow(Registries.LEVEL_STEM).forEach(levelStem -> {
+		registryAccess.lookupOrThrow(Registries.LEVEL_STEM).forEach(levelStem -> {
 			if(levelStem.generator() instanceof Invalidatable invalidatable) {
 				invalidatable.biome_modifier$invalidate();
 			}
@@ -92,13 +97,13 @@ public class BiomeModifierMod implements ModInitializer {
 											  RegistryAccess registryAccess, String debugInfo) {
 		long beginTime = System.currentTimeMillis();
 		BMLogger.info("Applying %s modifiers...".formatted(debugInfo));
-		Registry<R> registry = registryAccess.registryOrThrow(registryKey);
+		Registry<R> registry = registryAccess.lookupOrThrow(registryKey);
 		int modifiersCount = 0;
 		try {
 			manager.load(registryAccess);
 			manager.freeze();
 			modifiersCount = manager.getAllModifiers().size();
-			registry.holders().forEach(holder -> {
+			registry.asHolderIdMap().forEach(holder -> {
 				R value = holder.value();
 				manager.tryCastOrElseThrow(value, modifiable -> {
 					var list = modifiable.biome_modifier$getModificationParametersList(registryAccess);

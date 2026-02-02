@@ -102,7 +102,7 @@ public class BiomeMixin implements IModifiableBiome {
 	public BiomeModificationParametersList biome_modifier$getModificationParametersList(RegistryAccess registryAccess) {
 		return new BiomeModificationParametersList(
 				registryAccess,
-				registryAccess.registryOrThrow(Registries.BIOME).getKey((Biome)(Object)this),
+				registryAccess.lookupOrThrow(Registries.BIOME).getKey((Biome)(Object)this),
 				this.biome_modifier$climateSettings,
 				this.biome_modifier$specialEffects,
 				this.biome_modifier$generationSettings,

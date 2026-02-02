@@ -19,7 +19,7 @@ public class BiomeModifierModClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
 			try {
-				Registry<Biome> biomeRegistry = handler.registryAccess().registryOrThrow(Registries.BIOME);
+				Registry<Biome> biomeRegistry = handler.registryAccess().lookupOrThrow(Registries.BIOME);
 				for (ResourceKey<Biome> biomeKey: biomeRegistry.registryKeySet()) {
 					if((Object)biomeRegistry.get(biomeKey) instanceof IModifiableBiome modifiableBiome && !modifiableBiome.biome_modifier$isModified()) {
 						ClientPlayNetworking.send(new ServerboundRequestBiomeSpecialEffectsPayload(biomeKey.location()));
@@ -32,7 +32,7 @@ public class BiomeModifierModClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(ClientboundBiomeSpecialEffectsPayload.PAYLOAD_TYPE, (payload, context) -> {
 			RegistryAccess registryAccess = context.player().registryAccess();
-			if((Object)registryAccess.registryOrThrow(Registries.BIOME).get(payload.biome()) instanceof IModifiableBiome modifiableBiome && !modifiableBiome.biome_modifier$isModified()) {
+			if((Object)registryAccess.lookupOrThrow(Registries.BIOME).get(payload.biome()) instanceof IModifiableBiome modifiableBiome && !modifiableBiome.biome_modifier$isModified()) {
 				IModifiableBiome.BiomeModificationParametersList list = modifiableBiome.biome_modifier$getModificationParametersList(registryAccess);
 				list.setSpecialEffects(payload.effects());
 				modifiableBiome.biome_modifier$modify(list);

@@ -34,7 +34,9 @@ public class BiomeModifierManager implements IModifierManager<IBiomeModifier, Ab
 			throw new IllegalStateException("Registry is already frozen!");
 		}
 		ImmutableMap.Builder<ResourceLocation, IBiomeModifier> builder = ImmutableMap.builder();
-		registryAccess.registryOrThrow(BiomeModifierRegistries.REGISTRY_BIOME_MODIFIER).holders().forEach(holder -> builder.put(holder.key().location(), holder.value()));
+		registryAccess.lookupOrThrow(BiomeModifierRegistries.REGISTRY_BIOME_MODIFIER).asHolderIdMap().forEach(
+				holder -> builder.put(holder.unwrapKey().orElseThrow().location(), holder.value())
+		);
 		this.biomeModifiersByName = builder.build();
 	}
 
